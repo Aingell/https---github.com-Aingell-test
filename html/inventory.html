@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Relo</title>
+    <link href="../imgs/logo.png" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/basic.css" />
+    <link rel="stylesheet" href="../css/mypageBasic.css" />
+    <link rel="stylesheet" href="../css/inventory.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="../js/basic.js"></script>
+    <script src="../js/inventory.js"></script>
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <header id="header"></header>
+
+      <section>
+        <div class="snb_area">
+          <a href="./memberdetail.html" class="nuxt-link-active"
+            ><h2 class="snb_main_title">마이 페이지</h2></a
+          >
+          <nav class="snb">
+            <div class="snb_list">
+              <strong class="snb_title">쇼핑 정보</strong>
+              <ul data-v-7bcac446="" class="snb_menu">
+                <li class="menu_item menu_on">
+                  <a href="./orderList.html" aria-current="page" class="menu_link">
+                    구매 내역
+                  </a>
+                </li>
+                <li class="menu_item">
+                  <a href="./mypageingList.html" class="menu_link"> 입찰 내역 </a>
+                </li>
+                <li class="menu_item">
+                  <a
+                    href="./inventory.html"
+                    class="menu_link"
+                    style="font-weight: bold"
+                  >
+                    판매 내역
+                  </a>
+                </li>
+                <li class="menu_item">
+                  <a href="./mypage_zzimlist.html" class="menu_link"> 관심 상품 </a>
+                </li>
+              </ul>
+            </div>
+            <div class="snb_list">
+              <strong class="snb_title">내 정보</strong>
+              <ul class="snb_menu">
+                <li class="menu_item">
+                  <a href="./memberdetail.html" class="menu_link"> 프로필 정보 </a>
+                </li>
+                <li class="menu_item">
+                  <a href="./address.html" class="menu_link"> 주소록 </a>
+                </li>
+                <li class="menu_item">
+                  <a href="" class="menu_link"> 판매 정산 계좌 </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="content_area">
+          <div class="title">
+            <h1>판매 내역</h1>
+          </div>
+          <div class="inventoryList">
+            <div class="status">
+              <a class="stay">판매대기</a><a class="ing">진행중</a
+              ><a class="end">종료</a>
+            </div>
+            <div class="searchByDay">
+              <input type="button" value="최근 2개월" />
+              <input type="button" value="4개월" />
+              <input type="button" value="6개월" />
+              <input type="date" /> ~ <input type="date" />
+              <input type="button" value="조회" />
+            </div>
+            <div class="grade"><a>등급</a><a>상태</a></div>
+            <div class="sellList">
+              <div class="sell">
+                <div class="sFile">이미지</div>
+                <div class="sName">
+                  상품이름
+                  <div class="sizeCategoryName">사이즈</div>
+                </div>
+                <div class="sGrade">등급</div>
+                <div class="sReturn">상태</div>
+                <div class="sNum"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer id="footer"></footer>
+  </body>
+</html>

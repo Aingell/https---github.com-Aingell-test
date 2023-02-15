@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.relo.member.MemberDao">
+	<resultMap id="MemberVo" type="com.relo.member.MemberVo"
+		autoMapping="true">
+	</resultMap>
+
+	<insert id="insert" parameterType="MemberVo">
+		insert into
+		member(id,pwd,tel,email,type,birth,m_name)
+		values(#{id},#{pwd},#{tel},#{email},#{type},#{birth},#{mName})
+	</insert>
+
+	<select id="select" parameterType="String" resultType="MemberVo">
+		select *
+		from member where
+		id=#{id}
+	</select>
+
+	<select id="findId" parameterType="map" resultType="MemberVo">
+		select * from
+		member
+		where m_name = #{mName}
+		and email = #{email}
+	</select>
+
+	<update id="update" parameterType="MemberVo">
+		update member
+		<set>
+			pwd=#{pwd},
+			tel=#{tel},
+			email=#{email},
+			m_name=#{mName}
+		</set>
+		where id=#{id}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		delete from member where
+		id=#{id}
+	</delete>
+
+	<select id="checkOutTerms" parameterType="string"
+		resultType="int">
+		<!-- 1. 경매에만 있는 경우 -->
+		select count(*) as outTerm from
+		(select count(*) from auction
+		where
+		id=#{id}
+		and a_num not in (
+		select a_num from catch
+		)
+		and <![CDATA[a_price < 
+(select max(a_price)
+from auction a, product p
+where a.p_num = p.p_num
+and p_status = 6]]>
+		)
+		UNION
+		<!-- 2. catch에만 있는 경우 -->
+		select count(*) from catch c, auction a
+		where
+		c.a_num = a.a_num
+		and
+		c.a_num not in (select a_num from orders)
+		and a.id = #{id}
+		UNION
+		<!-- 3. order_delivery가 3이 아닌 경우 -->
+		select count(*)
+		from orders o, order_delivery od, auction a
+		where
+		o.o_num = od.o_num
+		and od.d_status not in (3)
+		and a.a_num = o.a_num
+		and
+		id=#{id}
+		)
+	</select>
+</mapper>

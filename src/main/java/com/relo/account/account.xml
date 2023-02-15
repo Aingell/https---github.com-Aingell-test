@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.relo.account.AccountDao">
+
+<resultMap type="AccountVo" id="accountMap" autoMapping="true">
+ 	<association property="m" javaType="MemberVo" autoMapping="true" >
+	</association>
+</resultMap>
+
+
+<!-- 판매자 계좌 삽입 -->
+ <insert id="insertAccount" parameterType="AccountVo">
+ 	insert into account values(#{m.id}, #{bankAccount}, #{bankCode})
+ </insert>
+ 
+ <!--회원 자신의 계좌 조회 -->
+ <select id="selectAccount"  resultMap="accountMap">
+    select a.BANK_ACCOUNT,a.BANK_CODE ,m.m_name
+	from account a ,member m
+	where  a.id=#{id} and m.id=a.id 	
+ </select>
+ 
+  <!--정산계좌 변경 -->
+ <update id="updateAccount" parameterType="AccountVo">
+ 	update account 
+ 	set bank_code=#{bankCode},bank_account=#{bankAccount}
+ 	where id=#{m.id}
+ </update>
+ 
+</mapper>

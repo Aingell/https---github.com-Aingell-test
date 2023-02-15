@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/@kfonts/nanum-barun-gothic-yet-hangul-otf/index.css" />
+<style>
+  a{
+    text-decoration: none;
+  }
+  li > a {
+  color: black;
+}
+</style>  
+</head>
+  <body>
+      <header>
+      <div class="top">
+        <nav>
+        <ul>
+          <li class="notice">공지사항</li>
+          <li class="mypage"><a href="./memberdetail.html">마이페이지</a></li>
+          <li class="join"><a href="./join.html">회원가입</a></li>
+          <li class="login"><a href="./login.html">로그인</a></li>
+          <li class="logout">로그아웃</li>
+        </ul>
+      </div>
+      <div class="bottom">
+        <div class="img"></div>
+        <nav>
+        <ul>
+          <li class="home"><a href="./index.html">HOME</a></li>
+          <li class="seller"><a href="./StockAdd.html">SELL</a></li>
+          <li class="shop">SHOP</li>
+          <li class="styleboard"><a href="./stylelist.html">STYLE</a></li>  
+          <li class="search"><img src="../imgs/search.png"></li>  
+        </ul>
+        </nav>
+      </div>
+    </header>
+  </body>
+  <script>
+    $('header>div.top>nav>ul>li.logout').on('click', function () {
+    let url = backUrl + '/member/logout.do';
+    $.ajax({
+      xhrFields: {
+        withCredentials: true,
+      },
+      url: url,
+      method: 'post',
+      success: function (jsonObj) {
+        console.log(jsonObj);
+        alert('로그아웃 되었습니다.');
+      },
+      error: function (xhr) {
+        alert('오류' + xhr.status);
+      },
+    });
+  });
+  </script>
+</html>

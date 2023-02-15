@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.relo.stock.StockDao">
+
+ <resultMap type="StockVo" id="stockMap"  autoMapping="true">
+ 	<id property="sNum" column="s_num"></id>
+    <association property="m" javaType="MemberVo" autoMapping="true">   
+    </association>
+    <association property="sizes" javaType="SizesVo" autoMapping="true">
+    </association>
+</resultMap>  
+
+
+
+	<select id="selectAll" resultType="StockVo">
+		SELECT * FROM STOCK
+	</select>
+	
+	<!-- 1.판매자 상품등록 -->
+	<insert id="insertStock" >
+		INSERT INTO stock (s_num,id,size_category_num,s_brand,s_name,s_origin_price,s_color,s_type,s_file,s_hope_days,seller_comment,s_return)
+        VALUES (stock_seq.NEXTVAL,#{m.id},#{sizes.sizeCategoryNum},#{sBrand},#{sName},#{sOriginPrice},#{sColor},#{sType},#{sFile},#{sHopeDays},#{sellerComment},1)
+	</insert>
+	
+	<!-- 1-2 계좌 등록은 account에 있어용 -->
+	
+	<!-- 2.판매자 마이페이지-> 판매내역 -> 판매대기 -->
+	<select id="selectById" parameterType="String" resultType="StockVo">
+		select s.s_num,s.s_file,s.s_name,si.SIZE_CATEGORY_NAME "sizes.size_category_name",s.s_return,s.s_grade
+  		from stock s ,sizes si
+  		where id=#{m.id} and (S_RETURN = 1 or S_RETURN = 2 or S_RETURN = 3)and s.size_category_num = si.size_category_num
+	</select>
+	
+	<!-- 3. 관리자 상품등록 승인요청 목록 -->
+	<!-- 관리자 상품 최종 등록 목록 -->
+	<select id="selectBySReturn" parameterType="int" resultType="StockVo">
+		select s.s_num,s.s_name,s.S_FILE,si.SIZE_CATEGORY_NAME "sizes.size_category_name",s.S_COLOR 
+		from stock s ,sizes si
+		where s.s_return = #{sReturn} and s.size_category_num = si.size_category_num
+	</select>
+	
+	<!-- 3-1 관리자 상품등록 승인요청 상세  -->
+	<!-- 관리자 상품 최종 등록 목록 상세-->
+	<select id="selectBySNum" resultType="StockVo">
+		select s.s_num,id "m.id",s.s_name,s.s_file,s.s_type,si.SIZE_CATEGORY_NAME "sizes.size_category_name",s.s_color,s.seller_comment,s.s_hope_days,s.s_origin_price,s.s_brand,s.s_grade,s.S_hope_price 
+		from stock s ,sizes si
+		where s.s_num=#{sNum} and s.size_category_num = si.size_category_num
+	</select>
+	
+	
+	
+	<!-- 4. 판매자 판매내역 ->  판매대기  -> 상세페이지 [계좌정보는 account에서 select] -->
+	<select id="selectByIdDeatil" parameterType="map" resultMap="stockMap">
+        select s.s_num,id "m.id",s.s_name,s.s_file,s.s_type,si.SIZE_CATEGORY_NAME "sizes.size_category_name",s.s_color,s.manager_comment,s.s_hope_days,s.s_origin_price,s.s_brand,s.s_return,s.s_grade
+		from stock s ,sizes si
+		where s.s_num=#{sNum} and id=#{id} and s.size_category_num = si.size_category_num
+	</select>
+	
+	<!-- 5. 판매자가 상품등급보고 판매희망여부 판단 5-1 희망 5-2 거부-->
+	
+	<!-- 5-1. 판매자 판매내역 ->  판매대기  -> 상세페이지 -> 희망가격 입력 -->
+	<!-- 3-2 관리자 상품등록 승인요청 상세 -> 등급과 comment를 판매자에게 넘기는 단계  -->
+	<!--  5-1,3-2 하나로 합침 -->
+	<update id="updateSetSReturn" parameterType="StockVo">
+		update stock 
+		<set>
+		<if test="sHopePrice != 0">
+		s_hope_price = #{sHopePrice},s_return=3 
+		</if>
+		<if test='sGrade != null and managerComment != null and sGrade !="불"'>
+		s_grade = #{sGrade}, s_return=2 ,manager_comment = #{managerComment}
+		</if>
+		<choose>
+			<when test='sGrade == "불"'>
+			s_grade = #{sGrade}, s_return=5 ,manager_comment = #{managerComment}
+			</when>
+		</choose>
+		</set>
+		where s_num = #{sNum}
+	</update>
+	
+	<!-- 5-2. 판매자 판매내역 ->  판매대기  -> 상세페이지 -> 취소버튼클릭-->
+	<!-- 최소한 재고 상태 5로 변경 -->
+	<update id="updateByCancleSReturn5" >
+		update stock 
+		set s_return=5 
+		where s_num = #{sNum}
+	</update>
+	
+
+	
+
+</mapper>
+

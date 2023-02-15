@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>아이디 or 비밀번호 찾기</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="../css/basic.css"
+    />
+    <link
+      data-n-head="ssr"
+      rel="icon"
+      type="image/x-icon"
+      href="../imgs/logo.png"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="../css/findid.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <script src="../js/basic.js"></script>
+    <script src="../js/findid.js"></script>
+  </head>
+  <body>
+    <!-- header import start -->
+    <div id="header"></div>
+    <section>
+
+      <!-- header import end -->
+      <div id="wrapper">
+        <div class="find-wrapper">
+          <h2>아이디 찾기</h2>
+          <form
+          method="post"
+          action="http://localhost:8888/relo/member/idOrPwdFind.do"
+          class="find-form"
+          >
+          <input type="hidden" id="flagid" name="flag" value="1" />
+          <input type="text" id="val1" name="mName" placeholder="이름" />
+          <input type="text" id="val2" name="email" placeholder="Email" />
+          <input type="button" id="findid" value="아이디 찾기" />
+        </form>
+      </div>
+      
+      <div class="find-wrapper">
+        <h2>비밀번호 찾기</h2>
+        <form
+        method="post"
+        action="http://localhost:8888/relo/member/idOrPwdFind.do"
+        class="find-form"
+        >
+        <input type="hidden" id="flagpwd" name="flag" value="2" />
+          <input type="text" id="val3" name="id" placeholder="Id" />
+          <input type="text" id="val4" name="email" placeholder="Email" />
+          <input type="button" id="findpwd" value="비밀번호 찾기" />
+        </form>
+      </div>
+    </div>
+  </section>
+    
+    <!-- 모달창으로 찾는 아이디 or 비밀번호 알려주기 start -->
+    <!-- <div id="modal" class="modal">
+      <p></p>
+    </div> -->
+    <!-- 모달창으로 찾는 아이디 or 비밀번호 알려주기 end -->
+    
+    <!--footer import start-->
+    <div id="footer"></div>
+    <!--footer import end-->
+  </body>
+</html>

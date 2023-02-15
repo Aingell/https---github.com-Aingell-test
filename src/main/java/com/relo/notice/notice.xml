@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.relo.notice.NoticeDao">
+	<resultMap id="NoticeVo" type="com.relo.notice.NoticeVo"
+		autoMapping="true">
+		<result column="n_num_pre" property="nNum" />
+		<result column="n_title_pre" property="nTitle" />
+		<result column="n_num_next" property="nNum" />
+		<result column="n_title_next" property="nTitle" />
+	</resultMap>
+
+	<insert id="insert" parameterType="NoticeVo">
+		insert into
+		notice(n_num,id,n_title,n_content,n_date,n_category,n_file)
+		values(notice_seq.nextval,#{id},#{nTitle},#{nContent},sysdate,${nCategory},#{nFile})
+	</insert>
+
+	<select id="selectAll" resultType="NoticeVo">
+		select * from notice order by
+		n_num desc
+	</select>
+
+	<select id="selectNoticeFromTo" parameterType="java.util.HashMap" resultType="NoticeVo">
+		select * from
+		(select rownum rn, a.*
+		from (select * from notice order by n_num desc) a)
+		where
+		rn between #{startRow} and #{endRow}
+	</select>
+
+	<select id="totalCnt" resultType="int">
+		select count(*) from notice
+	</select>
+
+	<select id="select" parameterType="int" resultType="NoticeVo">
+		select * from
+		notice where n_num=#{nNum}
+	</select>
+
+	<select id="selectByTitle" parameterType="string"
+		resultType="NoticeVo">
+		select * from notice where n_title like '%'||#{nTitle}||'%'
+		order by n_num desc
+	</select>
+
+	<select id="selectByCategory" parameterType="int"
+		resultType="NoticeVo">
+		select * from notice where n_category=#{nCategory} order by
+		n_num desc
+	</select>
+
+	<select id="selectPreByNNum" parameterType="int"
+		resultMap="NoticeVo">
+		select n_num_pre, n_title_pre from (select n_num, n_title,
+		lag(n_num,1) over(order by n_num) as n_num_pre,
+		lag(n_title,1)
+		over(order by n_num) as n_title_pre
+		from notice
+		)
+		where n_num=#{nNum}
+	</select>
+
+	<select id="selectNextByNNum" parameterType="int"
+		resultMap="NoticeVo">
+		select n_num_next, n_title_next from (select n_num, n_title,
+		lead(n_num,1) over(order by n_num) as n_num_next,
+		lead(n_title,1)
+		over(order by n_num) as n_title_next
+		from notice
+		)
+		where n_num=#{nNum}
+	</select>
+
+	<update id="update" parameterType="NoticeVo">
+		update notice
+		<set>
+			<if test='nTitle != null'>n_title=#{nTitle},</if>
+			<if test='nContent != null'>n_content=#{nContent},</if>
+			<if test='nCategory != null'>n_category=#{nCategory},</if>
+			<if test='nFile != null'>n_file=#{nFile}</if>
+		</set>
+		where n_num=#{nNum}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete from notice where
+		n_num=#{nNum}
+	</delete>
+</mapper>

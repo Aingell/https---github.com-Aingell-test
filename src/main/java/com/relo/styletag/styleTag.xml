@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.relo.styletag.StyleTagDao">
+	<resultMap id="StyleTagVo" type="com.relo.styletag.StyleTagVo" autoMapping="true">
+      <result column="hash_num" property="hashNum" />
+      <result column="style_num" property="styleNum" />
+      <result column="hash_name" property="hashName" />
+   </resultMap>
+
+	<!-- 스타일태그 추가 -->
+	<insert id="addStyleTag">
+		insert into style_tag values(hash_seq.nextval,#{styleNum}, #{hashName})
+	</insert>
+	
+	<!-- 스타일태그 삭제 -->
+	<delete id="delStyleTag"  parameterType="int">
+		delete style_tag where style_num = #{styleNum}
+	</delete>
+	<!-- 스타일태그 리스트 -->
+	<select id="styleTagList" resultType="StyleTagVo">
+		<![CDATA[
+	        SELECT hash_name
+ 			 FROM (
+       		 		SELECT hash_name, count(*)
+           			FROM style_tag
+           			group by hash_name
+					order by count(*) desc 
+       				)
+       		where rownum < 11
+		   ]]>
+	</select>
+	
+	<!-- 해당 게시물 태그 리스트 출력 -->
+	<select id="styleTagDetail" parameterType="int" resultType="StyleTagVo">
+		select *
+		from style_tag
+		where style_num = #{styleNum}
+		order by style_num desc
+	</select>
+</mapper>         

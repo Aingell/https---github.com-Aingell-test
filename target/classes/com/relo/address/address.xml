@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.relo.address.AddressDao">
+	<resultMap id="AddressVo" type="com.relo.address.AddressVo"
+		autoMapping="true">
+	</resultMap>
+
+	<insert id="insert" parameterType="AddressVo">
+		insert into address(addr_num,
+		id, addr_name, addr_post_num, addr_tel, addr, addr_detail,
+		addr_recipient, addr_type) values(addr_seq.nextval, #{id},
+		#{addrName}, ${addrPostNum},
+		#{addrTel}, #{addr}, #{addrDetail},
+		#{addrRecipient}, #{addrType})
+	</insert>
+
+	<insert id="selectNewAfterInsert" parameterType="AddressVo">
+		INSERT INTO address(addr_num, id, addr_name, addr_post_num, addr_tel,
+		addr, addr_detail, addr_recipient, addr_type)
+		VALUES (addr_seq.nextval,
+		#{id},
+		#{addrName}, ${addrPostNum},
+		#{addrTel},
+		#{addr}, #{addrDetail},
+		#{addrRecipient}, #{addrType})
+		<selectKey resultType="int" keyProperty="addrNum"
+			order="AFTER">
+			select addr_seq.currval from dual
+		</selectKey>
+	</insert>
+
+	<select id="selectAllById" parameterType="string"
+		resultType="AddressVo">
+		select * from address
+		where id=#{id} order by addr_num desc
+	</select>
+	
+	<select id="selectByNum" parameterType="int" resultType="AddressVo">
+		select * from address where addr_num=#{addrNum}
+	</select>
+	
+	<update id="changeAddrTypeIs0" parameterType="string">
+		update address set
+		addr_type=1
+		where addr_type=0
+		and id=#{id}
+	</update>
+
+	<update id="update" parameterType="AddressVo">
+		update address
+		<set>
+			<if test='addrName != null'>addr_name=#{addrName},</if>
+			<if test='addrPostNum != null'>addr_post_num=#{addrPostNum}</if>
+			,
+			<if test='addrTel != null'>addr_tel=#{addrTel}</if>
+			,
+			<if test='addr != null'>addr=#{addr}</if>
+			,
+			<if test='addrDetail != null'>addr_detail=#{addrDetail}</if>
+			,
+			<if test='addrRecipient != null'>addr_recipient=#{addrRecipient}</if>
+			,
+			<if test='addrType != null'>addr_type=#{addrType}</if>
+			,
+		</set>
+		where addr_num=#{addrNum}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete from address where
+		addr_num=#{addrNum}
+	</delete>
+</mapper>

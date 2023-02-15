@@ -1,0 +1,50 @@
+h3{
+    font-size: 25px;
+}
+div.wish{
+    width:100%;
+    height: auto;
+}
+div.wishlist{
+    width:100%;
+    padding-bottom: 20px;
+    height: auto;
+}
+div.simg{
+    float:left;
+    padding-right: 50px;
+}
+
+div.stype{
+    font-size: 20px;
+}
+
+div.sbrand{
+    font-size: 18px;
+}
+
+div.sname, div.scolor, div.sizecategoryname{ 
+    font-size :15px;
+    float:left;
+    padding-right: 50px;
+}
+
+div.grade{
+     float:left;
+    padding-right: 50px;
+}
+div.deletezzim, div.gotender{
+    float:left;
+     padding-right: 50px;
+}
+div.empty_area{
+    padding-top: 50px;
+    text-align: center;
+}
+div.pnum{
+    display: none;
+}
+
+section {
+  overflow: auto;
+}

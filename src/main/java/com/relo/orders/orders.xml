@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.relo.mybatis.orders.OrdersDao">
+
+<resultMap id="ordersMap" type="OrdersVo" autoMapping="true">
+	<id property="oNum" column="o_num"/>
+	<association property="scbid" javaType="ScBidVo" autoMapping="true">
+		<association property="a" javaType="AuctionVo" autoMapping="true">
+			<association property="product" javaType="ProductVo" autoMapping="true">
+				<association property="stock" javaType="StockVo" autoMapping="true">
+					<association property="m" javaType="MemberVo" autoMapping="true">
+					</association>
+					<association property="sizes" javaType="SizesVo" autoMapping="true">
+					</association>
+				</association>
+			</association>
+		</association>
+	</association>
+	<association property="address" javaType="AddressVo" autoMapping="true"></association>
+	<association property="od" javaType="ODeliveryVo" autoMapping="true">
+			<result property="dStatus" column="d_status"/>
+	</association>
+</resultMap>
+
+<resultMap id="ordersMap2" type="OrdersVo" autoMapping="true">
+	<id property="oNum" column="o_num"/>
+	<association property="scbid" javaType="ScBidVo" autoMapping="true">
+		<association property="a" javaType="AuctionVo" autoMapping="true">
+			<result property="id" column="buy_id"/>
+			<association property="product" javaType="ProductVo" autoMapping="true">
+				<association property="stock" javaType="StockVo" autoMapping="true">
+					<association property="m" javaType="MemberVo" autoMapping="true">
+					</association>
+					<association property="sizes" javaType="SizesVo" autoMapping="true">
+					</association>
+				</association>
+			</association>
+		</association>
+	</association>
+	<association property="address" javaType="AddressVo" autoMapping="true"></association>
+	<association property="od" javaType="ODeliveryVo" autoMapping="true">
+			<result property="dStatus" column="d_status"/>
+	</association>
+</resultMap>
+
+<!-- 회원별 주문목록 띄우기 -->
+<select id="selectOrdersList" resultMap="ordersMap" parameterType="String">
+select p.p_num, o.o_num, s.s_file, s.s_name, sz.size_category_name, a.a_price, o.o_date, od.d_status
+from stock s, product p, sizes sz, orders o, auction a, order_delivery od
+where a.a_num in (select c.a_num 
+from auction a, catch c
+where id=#{id}
+and a.a_num=c.a_num)
+and sz.size_category_num = s.size_category_num
+and s.s_num=p.s_num
+and p.p_num=a.p_num
+and a.a_num=o.a_num
+and o.o_num=od.o_num
+order by o.o_date desc
+</select>
+
+<!-- 회원별 주문목록 띄우기 페이징버전 -->
+<select id="selectListPaging" resultMap="ordersMap" parameterType="hashmap">
+select * from (
+    select rownum rn, a.* 
+    from (
+        select p.p_num "pro_p_num", o.o_num, s.s_name "pro_stock.s_name", sz.size_category_name "sizes.size_category_name", a.a_price "pro_a_a_price", o.o_date, od.d_status "pro_od.d_status"
+        from stock s, product p, sizes sz, orders o, auction a, order_delivery od
+        where a.a_num in (select c.a_num 
+        from auction a, catch c
+        where id=#{id}
+        and a.a_num=c.a_num)
+        and sz.size_category_num = s.size_category_num
+        and s.s_num=p.s_num
+        and p.p_num=a.p_num
+        and a.a_num=o.a_num
+        and o.o_num=od.o_num
+        order by o.o_date desc
+    ) 
+a) 
+where rn between #{start} and #{end}
+</select>
+
+<!-- 회원의 주문 상세 띄우기 -->
+<select id="selectOrdersDetail" resultMap="ordersMap" parameterType="int">
+select o.o_num, o.o_date, p.p_num , s.s_file, s.s_name , sz.size_category_name, a.a_price, od.d_status, od.d_trackin_info, od.d_complete_day, ad.addr_num, ad.addr_recipient, ad.addr_tel, ad.addr, ad.addr_detail
+from product p, stock s, sizes sz, auction a, orders o, order_delivery od, address ad
+where o.o_num=#{o_num}
+and sz.size_category_num = s.size_category_num
+and s.s_num=p.s_num
+and p.p_num=a.p_num
+and a.a_num=o.a_num
+and o.o_num=od.o_num
+and o.addr_num=ad.addr_num
+</select>
+
+<!-- 구매확정 상품 목록 관리자에게 출력 (관리자 확인용, 구매확정되면 자동 정산되는 걸로ㅇㅇ)-->
+<select id="selectByDStatus" resultMap="ordersMap2">
+select p.p_num, s.id, s.s_name, a.id as buy_id, od.d_complete_day, a.a_price
+from stock s, product p, auction a, orders o, order_delivery od
+where od.d_status=3
+and s.s_num=p.s_num
+and p.p_num=a.p_num
+and a.a_num=o.a_num
+and o.o_num=od.o_num
+order by od.d_complete_day desc
+</select>
+
+<!-- 구매확정 상품 목록 페이징 버전 -->
+<select id="selectPageByDStatus" resultMap="ordersMap2" parameterType="map">
+select * from (
+    select rownum rn, a.* 
+    from (
+        select p.p_num, s.id "stock.id", s.s_name "stock.s_name", a.id as buy_id, od.d_complete_day, a.a_price
+        from stock s, product p, auction a, orders o, order_delivery od
+        where od.d_status=3
+        and s.s_num=p.s_num
+        and p.p_num=a.p_num
+        and a.a_num=o.a_num
+        and o.o_num=od.o_num
+        order by od.d_complete_day desc
+    ) 
+a) 
+where rn between #{start} and #{end}
+</select>
+
+<!-- 결제 페이지에서 받은 정보, 결제완료되면 orders tb에 값 insert -->
+<!-- 필요한 정보 : 경매번호, 주소록번호, 배송메모, 결제일 -->
+<insert id="insertOrders" parameterType="hashmap">
+	<selectKey keyProperty="oNum" resultType="int" order="BEFORE">
+    	SELECT orders_seq.nextval FROM DUAL
+	</selectKey>
+insert into orders values(#{oNum}, #{aNum}, #{addrNum}, #{oMemo}, sysdate)
+</insert>
+
+<!-- 주소록에서 고른 주소록 번호를 update -->
+<!-- 주문번호는 페이지에서 받기 상세에서만 고칠 수 있음 -->
+<!-- 상세페이지에 있는 d_status가 0 배송준비중 일 때만 주소 수정 버튼 -->
+<update id="updateAddrNum" parameterType="map">
+update orders set addr_num=#{addrNum}
+where o_num =#{oNum}
+</update>
+
+
+</mapper>
+
+

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>회원가입</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="../css/basic.css"
+    />
+    <link
+      data-n-head="ssr"
+      rel="icon"
+      type="image/x-icon"
+      href="../imgs/logo.png"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="../css/join.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="../js/basic.js"></script>
+    <script src="../js/join.js"></script>
+  </head>
+  <body>
+    <!-- header import start -->
+    <div id="header"></div>
+    <!-- header import end -->
+    <form action="http://localhost:8888/relo/member/add.do" method="POST" class="joinForm">           
+      <h2>회원가입</h2>
+      <div class="textForm">
+        <input name="loginId" type="text" class="id" placeholder="아이디">
+        </input>
+      </div>
+      <p class="input_error" id="id_input_error"></p>
+      <div class="textForm">
+        <input name="loginPw" type="password" id="prepwd" class="pw" placeholder="영문,숫자,특수문자 조합 8-16자">
+      </div>
+      <p class="input_error" id="password_input_error"></p>
+       <div class="textForm">
+        <input name="loginPwConfirm" type="password" id="pwd" class="pw" placeholder="비밀번호 확인">
+      </div>
+      <p class="input_error" id="pwd_input_error"></p>
+      <div class="textForm">
+        <input name="name" type="password" id="name_input" class="name" placeholder="이름">
+      </div>
+      <p class="input_error" id="name_input_error"></p>
+       <div class="textForm">
+        <input name="email" type="text" class="email" placeholder="예)relo@relo.co.kr">
+      </div>
+      <p class="input_error" id="email_input_error"></p>
+      <div class="textForm">
+        <input name="birth" type="text" class="birth" placeholder="생일">
+      </div>
+      <div class="textForm">
+        <input name="cellphoneNo" type="number" id="hp_input" class="cellphoneNo" placeholder="-빼고 입력하세요">
+      </div>
+      <p class="input_error" id="tel_input_error"></p>
+      <input type="submit" class="btn" value="가입하기"/>
+    </form>
+
+    <!--footer import start-->
+    <div id="footer"></div>
+    <!--footer import end-->
+  </body>
+</html>

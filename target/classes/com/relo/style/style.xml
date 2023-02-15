@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.relo.style.StyleDao">
+	<resultMap id="StyleVo" type="com.relo.style.StyleVo"
+		autoMapping="true">
+	<collection property="tagList" ofType="com.relo.styletag.StyleTagVo" autoMapping="true" > 
+		<id property="hashNum" column="hash_num"/>
+		<result column="hash_name" property="hashName" />
+		</collection>
+	</resultMap>
+	<!-- 게시물 추가 -->
+	<insert id="addStyle">
+		insert into style values(style_seq.nextval, #{id},
+		#{styleContent}, #{styleFile}, sysdate, #{styleLikes})
+		<selectKey resultType="int" keyProperty="styleNum" order="AFTER">
+			select style_seq.currval from dual
+		</selectKey>
+	</insert>
+	
+	<!-- 게시물 삭제 -->
+	<delete id="delStyle">
+		delete from style where style_num = #{styleNum} and id = #{id}
+	</delete>
+
+	<!-- 게시물 수정 (if문 동적 쿼리 사용) -->
+	<update id="updateStyle" parameterType="StyleVo">
+		update style
+		<set>
+			<if test='styleContent!=null'> style_content=#{styleContent},</if>
+			<if test='styleFile!=null'> style_file=#{styleFile}</if>
+		</set>
+		where style_num=#{styleNum}
+	</update>
+	
+	<!-- 게시물 인기순, 최신순 리스트 보여주기 (choose문 동적 쿼리 사용) -->
+	<select id="selectStyleList" resultType="StyleVo">
+		select * from style
+		order by
+		<choose>
+			<when test="styleCode == 'styleLikes'">style_likes desc, style_num desc</when>
+			<otherwise> style_num desc </otherwise>
+		</choose>
+	</select>
+	
+	<!-- 게시물 리스트 내가 쓴 글 리스트(id로 검색) -->
+	<select id="selectStyleId" parameterType="String"
+		resultType="StyleVo">
+		select * from style where id = #{id} order by style_date desc
+	</select>
+	
+	<!-- 게시물 리스트 해시태그 검색해서 해당 리스트 : 좋아요순 -> 최신순으로 보여주기 (해시태그 누르면) -->
+	<select id="selectStyleTag" parameterType="StyleTagVo" resultType="StyleVo">
+		select a.*
+		from style a
+		join style_tag b
+		on a.style_num = b.style_num
+		where b.hash_name =
+		#{hashName}
+		order by style_likes desc, a.style_num desc
+	</select>
+
+	<!-- 게시물 상세보기 1.게시판 번호 2.작성자 3.해시태그 이름 (누르면 해당 해시태그 스타일 게시판으로 이동시키게 구현) 
+		4.이미지 5.날짜 6.좋아요 개수 -->
+	<select id="selectStyleDetail" parameterType="int" resultMap="StyleVo">
+		select a.style_num, a.id, b.hash_name, a.style_file,
+		a.style_date, a.style_likes
+		from style a
+		join style_tag b
+		on a.style_num
+		= b.style_num
+		where a.style_num = #{styleNum}
+	</select>
+	
+	<select id="styleDetail" parameterType="int" resultType="StyleVo">
+		select * from style
+		where style_num = #{styleNum}
+	</select>
+
+	<!-- 게시물 총 개수 -->
+	<select id="cntStyleList" resultType="int">
+		select count(*) from style
+	</select>
+
+	<!-- 페이징 테스트  -->
+	<select id="StyleListPage" parameterType="hashMap" resultType="StyleVo">
+	select * from style where rownum between #{start} and #{end}
+	order by style_likes desc, style_num desc 
+	</select>
+
+	<!-- style_likes -1 변경 시키기 -->
+	<update id="styleLikesChange" parameterType="int">
+		update style
+        set style_likes = style_likes-1
+		where style_num= #{styleNum}
+	</update>
+	<!-- 동적 쿼리로 변경 -->
+	<!-- <select id="selectStyleLikes" resultType="StyleVo"> select * from style 
+		order by style_likes desc, style_num desc </select> <select id="selectStyleNum" 
+		resultType="StyleVo"> select * from style order by style_num desc </select> -->
+	<!-- 게시물 리스트 1. styleLikes일 경우: 좋아요순 -> 최신순으로 보여주기 2. default일 경우: 최신순 -->
+</mapper>        

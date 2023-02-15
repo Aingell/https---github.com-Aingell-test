@@ -1,0 +1,96 @@
+/* 회원 -> 마이페이지 -> 판매내역 inventory */
+div.inventoryList {
+  background-color: rgb(246, 246, 246);
+  width: 75%;
+  line-height: 500%; /* br태그 간격조정 */
+}
+
+div.inventoryList > div.status {
+  text-align: center;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(0, 0, 0);
+  border-bottom-width: 1px;
+}
+
+div.inventoryList > div.status > a.stay {
+  float: left;
+  padding-left: 50px;
+}
+
+div.inventoryList > div.status > a.ing {
+  /* padding-left: 300px; */
+  text-align: center;
+}
+
+div.inventoryList > div.status > a.end {
+  float: right;
+  padding-right: 50px;
+}
+
+div.inventoryList > div.searchByDay {
+  text-align: center;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(0, 0, 0);
+  border-bottom-width: 1px;
+}
+
+div.inventoryList > div.grade {
+  text-align: right;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(0, 0, 0);
+  border-bottom-width: 1px;
+}
+
+div.inventoryList > div.grade > a {
+  padding-right: 75px;
+  font-weight: bold;
+}
+
+div.sellList > img.sFile {
+  width: 100px;
+  height: 100px;
+}
+
+div.sellList > div.sell {
+  display: flex;
+  padding-left: 10px;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(0, 0, 0);
+  border-bottom-width: 1px;
+}
+
+div.sellList > div.sell:hover {
+  cursor: pointer;
+  background-color: rgb(200, 200, 200);
+  transition: 0.3s;
+}
+
+div.sell > div.sNum {
+  display: none;
+}
+
+div.sell > div.sFile > img {
+  width: 150px;
+  height: 150px;
+}
+
+div.sellList > div.sell > div.sGrade {
+  flex: 0.7;
+}
+div.sellList > div.sell > div.sReturn {
+  flex: 1.4;
+}
+
+div.sellList > div.sell > div.sName {
+  flex: 5;
+}
+
+div.inventory {
+  line-height: 450%;
+}
+
+/* 판매자 판매내역 진행중 상세 */
+div.f > img {
+  width: 200px;
+  height: 200px;
+}

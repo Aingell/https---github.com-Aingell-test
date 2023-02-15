@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.relo.mybatis.odelivery.ODeliveryDao">
+
+
+<!-- 결제완료시 운송장번호 정보 받아서 해당 주문번호와 배송상태 0으로 insert -->
+<!-- 아마 랜덤한 숫자 6개-랜덤숫자 7개로 생성해서 넣어줘야 함 -->
+<insert id="insertODelivery" parameterType="map">
+insert into order_delivery(o_num, d_status, d_trackin_info) values(#{oNum}, 0, #{dTrackinInfo})
+</insert>
+
+<!-- 구매자가 구매확정(배송완료2인 상품 정보에만 버튼) 누르면 실행 -->
+<!-- 구매확정페이지에서 해당 주문번호 가져오기 -->
+<update id="updateStatus3" parameterType="int">
+update order_delivery set d_status = 3
+where o_num=#{oNum}
+</update>
+
+</mapper>

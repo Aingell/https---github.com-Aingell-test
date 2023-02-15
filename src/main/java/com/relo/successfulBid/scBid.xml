@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.relo.mybatis.scBid.ScBidDao">
+
+<resultMap id="scBidMap" type="ScBidVo" autoMapping="true">
+	<association property="a" javaType="AuctionVo" autoMapping="true">
+		<association property="product" javaType="ProductVo" autoMapping="true">
+			<association property="stock" javaType="StockVo" autoMapping="true">
+			</association>
+		</association>
+	</association>
+</resultMap>
+
+	<!-- 관리자가 낙찰상품들 보고 결제요청 버튼 클릭하면 낙찰tb에 값 insert -->
+	<insert id="insertCatch" parameterType="int">
+		insert into catch values(#{aNum}, sysdate)
+	</insert>
+
+	<!-- 구매자가 구매 취소할 경우, 낙찰tb에서 값 삭제 -->
+	<delete id="deleteCatch" parameterType="int">
+		delete from catch
+		where a_num = #{aNum}
+	</delete>
+	
+	<!-- 낙찰 상품 목록 관리자에게 출력 -->
+	<select id="selectByPStatus" resultMap="scBidMap">
+	select p.p_num, a.a_num, a.id, a.a_price, s.s_file, s.s_name, p.p_end_date
+	from catch c, auction a, product p, stock s
+	where p.p_status in (6,7)
+	and c.a_num=a.a_num
+	and a.p_num=p.p_num
+	and p.s_num = s.s_num
+	order by p.p_end_date desc
+	</select>
+	
+	<!-- 낙찰 상품 목록 페이징버전 -->
+	<select id="selectPageByPStatus" resultMap="scBidMap" parameterType="map">
+	select * from (
+	    select rownum rn, a.* 
+	    from (
+			select p.p_num, a.a_num, a.id, a.a_price, s.s_file, s.s_name "stock.s_name", p.p_end_date
+			from catch c, auction a, product p, stock s
+			where p.p_status in (6,7)
+			and c.a_num=a.a_num
+			and a.p_num=p.p_num
+			and p.s_num = s.s_num
+			order by p.p_end_date desc
+	    ) 
+	a) 
+	where rn between #{start} and #{end}
+	</select>
+</mapper>
+
+

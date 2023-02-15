@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<setting value="NULL" name="jdbcTypeForNull"/>
+		<setting name="returnInstanceForEmptyRow" value="true"/>
+	</settings>
+<typeAliases>
+      <typeAlias alias="AuctionVo" type="com.relo.auction.AuctionVo" />
+      <typeAlias alias="AuctionDTO" type="com.relo.auction.AuctionDTO"/>
+      <typeAlias alias="ProductVo" type="com.relo.product.ProductVo" />
+      <typeAlias alias="AccountVo" type="com.relo.account.AccountVo" />
+      <typeAlias alias="StockVo" type="com.relo.stock.StockVo" />
+      <typeAlias alias="ODeliveryVo" type="com.relo.orderDelivery.ODeliveryVo" /> 
+      <typeAlias alias="OrdersVo" type="com.relo.orders.OrdersVo" />
+      <typeAlias alias="SizesVo" type="com.relo.sizes.SizesVo" />
+      <typeAlias alias="AddressVo" type="com.relo.address.AddressVo" />
+      <typeAlias alias="ScBidVo" type="com.relo.successfulBid.ScBidVo" /> 
+      <typeAlias alias="LikesVo" type="com.relo.likes.LikesVo" />
+         <typeAlias alias="StyleTagVo" type="com.relo.styletag.StyleTagVo" />
+         <typeAlias alias="ReplyVo" type="com.relo.reply.ReplyVo" />
+         <typeAlias alias="StyleVo" type="com.relo.style.StyleVo"/>
+        <typeAlias alias="MemberVo" type="com.relo.member.MemberVo"/>
+        <typeAlias alias="NoticeVo" type="com.relo.notice.NoticeVo"/>
+        <typeAlias alias="ZzimVo" type="com.relo.zzim.ZzimVo"/>
+         
+  
+</typeAliases>
+
+	<environments default="mybatis_test">
+		<environment id="mybatis_test">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver" />
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+				<property name="username" value="relo" />
+				<property name="password" value="relo" />
+			</dataSource>
+		</environment>
+	</environments>
+<mappers>
+    <mapper resource="com/relo/auction/auction.xml" />
+   <mapper resource="com/relo/orders/orders.xml" />
+   <mapper resource="com/relo/successfulBid/scBid.xml" />
+   <mapper resource="com/relo/product/product.xml" />
+   <mapper resource="com/relo/orderDelivery/oDelivery.xml" />
+   <mapper resource="com/relo/likes/likes.xml"/>
+    <mapper resource="com/relo/styletag/styleTag.xml"/>
+    <mapper resource="com/relo/reply/reply.xml"/>
+    <mapper resource="com/relo/style/style.xml"/>
+     <mapper resource="com/relo/member/member.xml" />
+    <mapper resource="com/relo/notice/notice.xml" />
+    <mapper resource="com/relo/address/address.xml" />
+    <mapper resource="com/relo/stock/stock.xml" />
+    <mapper resource="com/relo/zzim/zzim.xml" />
+    <mapper resource="com/relo/account/account.xml" />
+</mappers>
+
+</configuration>
+
+

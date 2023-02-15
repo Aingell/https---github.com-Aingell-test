@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.relo.product.ProductDao">
+
+	<resultMap type="ProductVo" id="ProductMap" autoMapping="true">	
+		<id property="pNum" column="p_num" />
+			<association property="stock" javaType="StockVo" autoMapping="true">
+				<association property="m" javaType="memberVo" autoMapping="true"></association>
+				<association property="sizes" javaType="SizesVo" autoMapping="true"></association>
+			</association>
+			<collection property="auction" ofType="AuctionVo" autoMapping="true">			
+				<result property="aPrice" column="max_price" />
+			</collection>
+	</resultMap>
+
+	<resultMap id="ProductVo" type="com.relo.product.ProductVo"
+		autoMapping="true">
+		<association property="stock" javaType="StockVo"
+			autoMapping="true">
+			<association property="sizes" javaType="SizesVo"
+				autoMapping="true">
+				<id column="size_category_num" property="sizeCategoryNum" />
+				<result column="size_category_name"
+					property="sizeCategoryName" />
+			</association>
+		</association>
+	</resultMap>
+
+
+
+	<!-- 관리자가 재고에서 상품으로 등록 등록안됨 -->
+	<insert id="insertProduct" parameterType="map">
+		insert into
+		product(p_num, s_num,p_start_date,p_end_date, p_status)
+		values
+		(product_seq.nextval,#{sNum},sysdate, sysdate+#{pEndDate}, 4)
+	</insert>
+
+	<!-- 판매자 판매내역 진행중 페이지 -->
+	<select id="selectByIdProduct" resultMap="ProductMap">
+		select
+		p.s_file,p.s_name,s.SIZE_CATEGORY_NAME,p.P_STATUS,p.p_num,p.s_grade,p.s_hope_price
+		from p_info p , sizes s
+		where id=#{id}  and p.size_category_num = s.size_category_num
+	</select>
+
+	<!-- 판매자 판매내역 상세 페이지 옥션 계좌는 account에서 따로 -->
+
+	<select id="selectByIdProductDetail" parameterType="map"
+		resultMap="ProductMap">
+		<choose>
+			<when test="price == sHopePrice">
+				select
+				p.s_file,p.s_name,s.SIZE_CATEGORY_NAME,p.P_STATUS,P_END_DATE,p.s_hope_price,p.s_grade
+				from p_info p,sizes s
+				where p.id=#{id} and p.p_num=#{pNum} and p.size_category_num = s.size_category_num
+			</when>
+			<otherwise>
+				select
+				p.s_file,p.s_name,s.SIZE_CATEGORY_NAME,p.P_STATUS,p.P_END_DATE,a.MAX_PRICE,p.s_hope_price,p.s_grade
+				from p_info p ,a_max a,sizes s
+				where p.id=#{id} and p.p_num = a.p_num and p.size_category_num = s.size_category_num
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 판매자 판매내역 종료 페이지 -->
+	<select id="selectByEndProduct" resultMap="ProductMap">
+		select
+		p.s_file,p.s_name,s.SIZE_CATEGORY_NAME,p.P_STATUS,p.p_num
+		from p_info p , sizes s
+		where p.id =#{id} and p.p_status = 6 and p.size_category_num = s.size_category_num
+	</select>
+
+	<!-- 판매자 판매내역 종료 페이지 디테일 계좌는 account-->
+	<select id="selectByEndProductDetail" resultMap="ProductMap">
+		select
+		p.s_file,p.s_name,s.SIZE_CATEGORY_NAME,p.p_status,p.p_end_date,p.p_num
+		,a.max_price 
+		from p_info p ,
+		a_max a, sizes s
+		where p.id=#{id} and p.p_num = a.P_num
+		and p.size_category_num = s.size_category_num
+	</select>
+
+	<!-- 낙찰자가 구매를 포기할 경우(버튼클릭) 상태 값 유찰됨(8)으로 변경 -->
+	<update id="update8" parameterType="int">
+		update product
+		set p_status=8
+		where p_num = (
+		select p_num
+		from auction
+		where a_num=#{aNum})
+	</update>
+	
+	<select id="searchProdList" parameterType = "Map"  resultMap="ProductMap">
+SELECT * FROM (SELECT rownum rn, t.* FROM (SELECT p.p_num, s.s_num, s.s_name, s.s_hope_price, s.s_file, a.max_price, p.p_end_date, s.s_type
+FROM product p, stock s,(SELECT p_num, max(a_price) as max_price FROM auction GROUP BY p_num) a
+WHERE p.s_num = s.s_num AND p.p_num = a.p_num(+) AND p_status = 4
+<choose>
+	<when test='type == "신발"'>AND s.s_type = '신발'</when>
+	<when test='type == "상의"'>AND s.s_type = '상의'</when>
+	<when test='type == "하의"'>AND s.s_type = '하의'</when>
+	<otherwise></otherwise>
+</choose> 
+<choose>
+	<when test='orderkind == "pnumdesc"'>ORDER BY p.p_num DESC</when>
+	<when test='orderkind == "penddate"'>ORDER BY p.p_end_date ASC</when>
+</choose>
+) t ) WHERE rn BETWEEN 1 AND 20
+</select>	
+
+<select id = "searchProdListZzim" parameterType = "map" resultMap ="ProductMap">
+SELECT * FROM (SELECT rownum rn, t.* FROM (SELECT p.p_num, s.s_num, s.s_name, s.s_hope_price, s.s_file, a.max_price, p.p_end_date, s.s_type
+FROM product p, stock s, (SELECT p_num, max(a_price) as max_price FROM auction GROUP BY p_num) a, 
+(SELECT p_num, count(*) zcount FROM zzim GROUP BY p_num ORDER BY zcount) z
+WHERE p.s_num = s.s_num AND p.p_num = a.p_num(+) AND p_status = 4 AND p.p_num = z.p_num 
+<choose>
+	<when test='type == "신발"'>AND s.s_type = '신발'</when>
+	<when test='type == "상의"'>AND s.s_type = '상의'</when>
+	<when test='type == "하의"'>AND s.s_type = '하의'</when>
+</choose> 
+ORDER BY z.zcount desc) t ) WHERE rn BETWEEN 1 AND 20
+</select>
+
+<select id ="searchProdListNoTender" parameterType = "map" resultMap ="ProductMap">
+SELECT * FROM (SELECT rownum rn, t.* FROM (SELECT p.p_num, s.s_num, s.s_name, s.s_hope_price, s.s_file, p.p_end_date, s.s_type
+FROM product p , stock s 
+WHERE p.s_num = s.s_num AND p_status = 4 AND NOT p_num IN (SELECT p_num FROM auction)
+<choose>
+	<when test='type == "신발"'>AND s.s_type = '신발'</when>
+	<when test='type == "상의"'>AND s.s_type = '상의'</when>
+	<when test='type == "하의"'>AND s.s_type = '하의'</when>
+</choose> 
+ORDER BY p_end_date ) t ) WHERE rn BETWEEN 1 AND 20
+</select>
+
+<select id = "searchProdListByName" parameterType = "string" resultMap = "ProductMap">
+SELECT * FROM (SELECT rownum rn, t.* FROM (SELECT p.p_num, s.s_num, s.s_name, s.s_hope_price, s.s_file, a.max_price, p.p_end_date, s.s_type
+FROM product p, stock s, (SELECT p_num, max(a_price) as max_price FROM auction GROUP BY p_num) a
+WHERE p.s_num = s.s_num AND p.p_num = a.p_num(+) AND p_status = 4 AND s_name Like #{searchvalue}
+ORDER BY p_end_date) t ) WHERE rn BETWEEN 1 AND 20
+</select>
+
+<select id = "recentTender"  parameterType ="Map" resultMap="ProductMap">
+	SELECT * FROM 
+		(SELECT rownum rn, t.* FROM 
+			(SELECT p.p_num, a.id, a_price
+			FROM product p, stock s, auction a
+			WHERE p.s_num = s.s_num AND p.p_num = a.p_num AND a.p_num =#{pNum}
+			ORDER BY a.a_price DESC	) t 
+		) WHERE rn BETWEEN 1 AND 20
+</select>
+
+<select id = "productDetail" parameterType = "int" resultMap = "ProductMap">
+SELECT distinct s.s_num, s.id, s_file, p.p_end_date, s_hope_price, (SELECT max(a_price) FROM auction WHERE p_num = #{pNum}) max_price,
+manager_comment, sz.size_category_name, s_brand, s_name, s_color, s_origin_price, s_grade
+FROM stock s, product p, auction a, sizes sz
+WHERE s.s_num = p.s_num AND s.size_category_num = sz.size_category_num AND p_status =4 AND p.p_num = a.p_num AND p.p_num = #{pNum}
+</select>
+
+
+<select id = "totalCnt" resultType="int" >
+SELECT COUNT(*) totalcnt FROM product
+</select>
+
+<insert id = "insertTender" parameterType = "Map">
+INSERT into auction values(auction_seq.nextval, #{id} , #{pNum}, #{aPrice})
+</insert>
+
+<select id="selectSNumByPNum" resultType="int" parameterType="int">
+		select s_num from product
+		where p_num=#{pNum}
+	</select>
+
+	<select id="selectAllByPStatusIs8" resultMap="ProductVo">
+		select s.*, sp.*,
+		p.p_end_date,
+		p.p_num
+		from stock s, product p, sizes sp
+		where
+		s.s_num=p.s_num
+		and sp.size_category_num = s.size_category_num
+		and
+		p.p_status=8
+		order by p.p_end_date desc
+	</select>
+
+	<update id="updateWhenReBid" parameterType="int">
+		update stock
+		<set>
+			s_return = 3
+		</set>
+		where s_num=#{sNum}
+	</update>
+
+	<delete id="deleteReBiddingProduct" parameterType="int">
+		delete from
+		product
+		where p_num=#{pNum}
+	</delete>
+	
+	
+
+</mapper>

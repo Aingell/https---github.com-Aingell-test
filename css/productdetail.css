@@ -1,0 +1,88 @@
+section {
+  overflow: auto;
+}
+
+div.left {
+  width: 50%;
+  float: left;
+  text-align: center;
+}
+
+#tender {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+h3 {
+  font-size: 30px;
+}
+h3 > span {
+  font-size: 20px;
+}
+
+div.right {
+  width: 50%;
+  float: right;
+  box-sizing: border-box;
+}
+
+div.sbrand {
+  margin-top: 150px;
+  font-size: 30px;
+  margin-left: 15px;
+  margin-bottom: 5px;
+}
+
+div.sname {
+  font-size: 25px;
+  margin-left: 15px;
+  margin-bottom: 5px;
+}
+
+div.shopeprice {
+  font-size: 20px;
+  margin-left: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+div.maxprice {
+  font-size: 20px;
+  margin-left: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+div.inserttender {
+  font-size: 20px;
+  margin-left: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+#zsubmit {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+div.smanagercomment {
+  float: left;
+  margin-right: 20px;
+}
+
+div.scolor {
+  float: left;
+  margin-right: 30px;
+}
+div.soriginprice {
+  float: left;
+  margin-right: 30px;
+}
+div.pnum {
+  display: none;
+}
+
+div.sid {
+  display: none;
+}
+

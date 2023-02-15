@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.relo.likes.LikesDao">
+	 <resultMap id="likesVo" type="com.relo.likes.LikesVo"
+      autoMapping="true">
+      <result column="style_num" property="styleNum" />
+      <result column="id" property="id" />
+   </resultMap>
+	
+	<insert id="addLikes">
+		insert into likes values(#{styleNum}, #{id})
+	</insert>
+	
+	<delete id="delLikes">
+        delete from likes where style_num = #{styleNum} and id = #{id}
+    </delete>
+    
+    <select id ="checkLikes" resultType="LikesVo">
+		select  * from likes where style_num=#{styleNum} and id=#{id}
+</select>
+</mapper>

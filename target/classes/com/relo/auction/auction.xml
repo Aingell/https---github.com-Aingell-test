@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.relo.mybatis.auction.AuctionDao">
+
+<resultMap id="auctionMap" type="AuctionVo" autoMapping="true">
+	<id property="aNum" column="a_num"/>
+	<association property="product" javaType="ProductVo" autoMapping="true">
+		<association property="stock" javaType="StockVo" autoMapping="true">
+			<association property="sizes" javaType="SizesVo" autoMapping="true">
+			</association>
+		</association>
+	</association>
+</resultMap>
+
+<resultMap id="auctionDtoMap" type="AuctionDTO" autoMapping="true">
+	<id property="aNum" column="a_num"/>
+	<association property="product" javaType="ProductVo" autoMapping="true">
+		<association property="stock" javaType="StockVo" autoMapping="true">
+			<association property="sizes" javaType="SizesVo" autoMapping="true">
+			</association>
+		</association>
+	</association>
+</resultMap>
+<resultMap id="AuctionMap" type="AuctionVo" autoMapping="true">
+	<id property="aNum" column="a_num"/>
+	<result property="aPrice" column="max_price" />
+	<association property="product" javaType="ProductVo" autoMapping="true">
+		<association property="stock" javaType="StockVo" autoMapping="true">
+			<association property="sizes" javaType="SizesVo" autoMapping="true">
+			</association>
+		</association>
+	</association>
+</resultMap>
+
+<!-- 판매자 판매내역 상세 페이지로 들어가는데 입찰여부 확인-->
+<select id="maxPriceByPNum" resultMap="AuctionMap" parameterType="int">
+select a.p_num, max(a.a_price) as max_price 
+from auction a,product p
+where #{p.pNum} = a.p_num
+group by a.p_num
+</select>
+
+<!-- 가격 입력 후 입찰하기 누르면 insert문 -->
+<insert id="insertAuction" parameterType="map">
+insert into auction values(auction_seq.nextval,#{id}, #{pNum}, #{aPrice})
+</insert>
+
+<!-- 이미 입찰 시도를 했는지 체크하는 sql 문 추가 -->
+<select id="selectById" resultType="Integer" parameterType="map">
+select a_num from auction
+where id = #{id}
+and p_num=#{pNum}
+</select>
+
+<!-- 위의 값이 존재하면 update 문 -->
+<update id="updateAPrice" parameterType="map">
+	update auction set a_price=#{aPrice}
+	where a_num=#{aNum}
+</update>
+
+<!-- 회원의 입찰 시도한 내역 sql - 필터링은 나중에 ^^,,
+	상품 사진, 상품명, 상품 사이즈, 입찰가, 상품번호
+	입찰시도한 것들 중 진행중인 경매 -->
+<select id="selectIngListById" resultMap="auctionMap" parameterType="String">
+select a.a_num, p.p_num, p.p_end_date, s.s_file, s.s_name, sz.size_category_name, a.a_price
+from sizes sz, stock s, product p, auction a
+where a.id=#{id}
+and sz.size_category_num=s.size_category_num
+and s.s_num = p.s_num
+and p.p_num=a.p_num
+and p.p_status=4
+</select>
+
+<!-- 회원의 입찰 시도한 내역 중 경매 종료, 해당 회원이 낙찰됐는지 상태 -->
+<select id="selectEndListById" resultMap="auctionDtoMap" parameterType="String">
+select a.a_num, p.p_num, s.s_file, s.s_name, sz.size_category_name, a.a_price, am.max_price "max_price", p.p_status, p.p_end_date
+from sizes sz, stock s, product p, auction a, a_max am
+where a.id=#{id}
+and sz.size_category_num=s.size_category_num
+and s.s_num = p.s_num
+and p.p_num=a.p_num
+and p.p_num=am.p_num
+and p.p_status in (6, 7, 8)
+</select>
+
+</mapper>
