@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="../css/mypageBasic.css" />
     <link rel="stylesheet" href="../css/myauction.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    
     <script src="../js/basic.js"></script>
-    <script src="../js/mypage.js"></script>
+    <script src="../js/myauction.js"></script>
   </head>
 
   <body>
@@ -77,7 +78,10 @@
             </div>
           </div>
           <div class="auction_tab_list">
-            <div class="auction_tab" style="border-bottom: 2px solid black">
+            <div
+              class="auction_tab ing_tab"
+              style="border-bottom: 2px solid black"
+            >
               <div class="tab_box">
                 <div
                   class="count_ing"
@@ -85,38 +89,38 @@
                 >
                   0
                 </div>
-                <div class="title_ing" style="font-weight: bold">구매 입찰</div>
+                <div class="title_ing" style="font-weight: bold; color: black ">구매 입찰</div>
               </div>
             </div>
-            <div class="auction_tab">
+            <div class="auction_tab end_tab">
               <div class="tab_box">
-                <div class="count_end">0</div>
+                <div class="count_end" style="font-weight: bold; color: black">0</div>
                 <div class="title_end">경매 종료</div>
               </div>
             </div>
           </div>
           <div class="auction_list">
             <div class="search_by_day">
-              <input type="button" value="최근 2개월" />
-              <input type="button" value="4개월" />
-              <input type="button" value="6개월" />
-              <input type="date" class="start_day" /> ~ <input type="date" />
+              <input type="button" value="최근 3일" id="3days"/>
+              <input type="button" value="5일" id="5days"/>
+              <input type="button" value="7일" id="7days"/>
+              
+              <input type="date" class="start_day" /> ~ <input type="date" class="end_day"/>
               <input type="button" value="조회" id="search" />
             </div>
           </div>
           <ul class="period_possible">
-            <li>한 번에 조회 가능한 기간은 최대 6개월입니다.</li>
-            <li>기간별 조회 결과는 입찰일 기준으로 노출됩니다.</li>
+            <li>한 번에 조회 가능한 기간은 최대 7일입니다.</li>
+            <li>기간별 조회 결과는 경매 마감일 기준으로 노출됩니다.</li>
           </ul>
           <div class="auction_list">
             <div class="head_menu">
               <div class="auction_box">이미지</div>
-              <div class="auction_box">상품정보</div>
+              <div class="auction_boxs">상품정보</div>
               <div class="auction_box">등급</div>
               <div class="auction_box">입찰가</div>
               <div class="auction_box">경매 마감일</div>
             </div>
-
             <div class="list_area">
               <div class="desc">
                 <div class="item_area s_file">이미지</div>
@@ -134,40 +138,6 @@
             <button id="shop">SHOP 바로가기</button>
           </div>
         </div>
-        <!-- <div class="content_area">
-          <div class="title">
-            <h1>입찰 내역</h1>
-          </div>
-          <div class="auctionList">
-            <div class="status">
-              <a class="stay" style="font-weight: bold">구매 입찰</a
-              ><a class="end">경매 종료</a>
-            </div>
-            <div class="searchByDay">
-              <input type="button" value="최근 2개월" />
-              <input type="button" value="4개월" />
-              <input type="button" value="6개월" />
-              <input type="date" class="startDay" /> ~ <input type="date" />
-              <input type="button" value="조회" />
-            </div>
-          </div>
-          <div class="periodPossible">
-            한 번에 조회 가능한 기간은 최대 6개월입니다.<br />
-            기간별 조회 결과는 입찰일 기준으로 노출됩니다.
-          </div>
-          <div class="auctionList">
-            <div class="auction">
-              <div class="sFile">이미지</div>
-              <div class="sName">
-                상품이름
-                <div class="sizeCategoryName">사이즈</div>
-              </div>
-              <div class="sGrade">등급</div>
-              <div class="sReturn">상태</div>
-              <div class="sNum"></div>
-            </div>
-          </div>
-        </div> -->
       </section>
     </div>
     <div id="footer"></div>

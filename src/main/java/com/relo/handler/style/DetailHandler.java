@@ -30,8 +30,8 @@ public class DetailHandler implements Handler {
 		response.setCharacterEncoding("utf-8");
 		
 		response.setContentType("application/json;charset=UTF-8");
-		response.addHeader("Access-Control-Allow-Origin", "http://192.168.123.103:5500");
-//		response.addHeader("Access-Control-Allow-Origin", "http://192.168.0.42:5500");
+//		response.addHeader("Access-Control-Allow-Origin", "http://192.168.123.103:5500");
+		response.addHeader("Access-Control-Allow-Origin", "http://192.168.0.42:5500");
 		response.addHeader("Access-Control-Allow-Credentials", "true");//쿠키허용
 		
 		HttpSession session = request.getSession();

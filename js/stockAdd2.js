@@ -3,7 +3,7 @@ $(() => {
   let $form = $("section>div.StockAdd2>form");
 
   $form.submit((e) => {
-    let url = backURL + "/account/add.do";
+    let url = backUrl + "/account/add.do";
     let params = {
       bankCode: $("#bankCode").val(),
       bankAccount: $("#bankAccount").val(),
@@ -14,7 +14,7 @@ $(() => {
       method: "post",
       data: params,
       success: function () {
-        location.href = frontURL + "StockAdd3.html";
+        location.href = frontUrl + "StockAdd3.html";
       },
       error: function (xhr) {
         alert("계좌번호를 입력하세요");

@@ -13,6 +13,13 @@ section > div.StockAdd > h1 {
   text-align: center;
 }
 
+input[type="submit"] {
+  color: #fff;
+  font-size: 16px;
+  background-color: #000000;
+  margin-top: 20px;
+}
+
 section > div.StockAdd > form {
   display: inline-block;
   line-height: 300%; /* br태그 간격조정 */

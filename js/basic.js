@@ -1,7 +1,7 @@
-// let backUrl = "http://192.168.0.42:8888/relo";
-// let frontUrl = "http://192.168.0.42:5500/html";
-let backUrl = "http://192.168.123.103:8888/relo";
-let frontUrl = "http://192.168.123.103:5500/html";
+let backUrl = "http://192.168.0.42:8888/relo";
+let frontUrl = "http://192.168.0.42:5500/html";
+// let backUrl = "http://192.168.123.103:8888/relo";
+// let frontUrl = "http://192.168.123.103:5500/html";
 
 
 $(() => {

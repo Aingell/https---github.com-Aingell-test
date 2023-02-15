@@ -1,77 +1,3 @@
-/* 입찰 css 시작 */
-
-/* div.title {
-  border-bottom-style: solid;
-  border-bottom-color: rgb(0, 0, 0);
-  border-bottom-width: 2px;
-  width: 95%;
-  margin-bottom: 60px;
-}
-
-div.content_area {
-  float: right;
-  width: 75%;
-}
-
-div.auctionList {
-  background-color: rgb(246, 246, 246);
-  width: 95%;
-  line-height: 500%; /* br태그 간격조정 
-}
-
-div.auctionList > div.status {
-  text-align: center;
-  border-bottom-style: solid;
-  border-bottom-color: rgb(205, 205, 205);
-  border-bottom-width: 1px;
-  padding-bottom: 80px;
-}
-
-div.auctionList > div.status > a.stay {
-  float: left;
-  padding-left: 175px;
-}
-
-div.auctionList > div.status > a.end {
-  float: right;
-  padding-right: 175px;
-}
-
-div.auctionList > div.searchByDay {
-  text-align: center;
-  border-bottom-style: solid;
-  border-bottom-color: rgb(205, 205, 205);
-  border-bottom-width: 1px;
-}
-div.auctionList > div.searchByDay > input[type="button"] {
-  margin-left: 5px;
-  color: #000000;
-  font-size: 13px;
-  background-color: #ffffff;
-  margin-top: 20px;
-  border-radius: 8px;
-  border: 1px solid;
-}
-
-div.auctionList > div.searchByDay > input.startDay {
-  margin-left: 10px;
-}
-
-div.periodPossible {
-  background-color: rgb(246, 246, 246);
-  width: 95%;
-  padding-left: 10px;
-  font-size: small;
-  line-height: 120%;
-} 
-*/
-
-div.auction_list {
-  text-align: center;
-}
-
-/* 내가 만들었던 부분*/
-
 /* 입찰내역 하단 내용들 위치 css */
 div.content_area {
   float: right;
@@ -87,6 +13,11 @@ div.content_area > div.auction_tab_list > div.auction_tab {
   /* background-color: brown; */
   line-height: 160%;
   margin-right: -4px; /* inline block 처리시 생기는 4px 여백 제거용*/
+  cursor: pointer;
+}
+
+div.title_ing, div.title_end {
+  color:rgba(34, 34, 34, 0.5)
 }
 
 /* 입찰내역 title css */
@@ -95,7 +26,7 @@ div.title {
   border-bottom-color: rgb(0, 0, 0);
   border-bottom-width: 2px; */
   /* width: 95%; */
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 
 /* 상품명, 사이즈, 입찰가, 경매마감일 title css */
@@ -107,50 +38,70 @@ div.head_menu {
 }
 
 div.auction_box {
-  width: 20%;
+  width: 18.5%;
   text-align: center;
   display: inline-block;
   margin-right: -4px;
-  padding-top: 50px;
+  padding-top: 24px;
   /* background-color: aqua; */
 }
-
+div.auction_boxs {
+  width: 25%;
+  text-align: center;
+  display: inline-block;
+  margin-right: -4px;
+  padding-top: 24px;
+  /* background-color: aqua; */
+}
 /* 상품 정보 css START */
-div.list_area {
+div.desc {
   border-bottom: 1px solid rgb(205, 205, 205);
   width: 94%;
 }
 
 div.item_area {
-  width: 20%;
+  width: 18.5%;
   text-align: center;
   display: inline-block;
   margin-right: -4px;
   padding: 60px 20px 55px;
+  vertical-align: bottom;
   /* background-color: gray; */
 }
 
 div.item_areas {
-  width: 20%;
+  width: 25%;
   text-align: center;
   display: inline-block;
   margin-right: -4px;
   padding: 40px 20px 35px;
-  vertical-align: bottom;
+  /* vertical-align: bottom; */
+}
+
+div.s_file {
+  background-size: 150px;
+  /*백그라운드 위치 옵션을 center 정중앙에 위치  */
+	background-position: center;
+	/*기본적으로 백그라운드의 옵션은 repeat이다. */
+	background-repeat: no-repeat;
+  vertical-align: top;
   /* background-color: gray; */
 }
+
 div.list_area > div.desc:hover {
   cursor: pointer;
   /* background-color: rgb(200, 200, 200); */
   background-color: #fafafa;
   transition: 0.5s;
 }
-/* div.zero_auction {
-  width: 80%;
+
+div.zero_auction {
+  width: 100%;
   text-align: center;
   display: inline-block;
-  padding-bottom: 20px;
-} 상품 아무것도 없을 때 안내 문구 css */
+  padding: 50px;
+}
+/*상품 아무것도 없을 때 안내 문구 css */
 /* 상품 정보 css END */
 
 /* 달력 css START */
@@ -172,6 +123,7 @@ div.auction_list > div.search_by_day > input[type="button"] {
   border-radius: 5px;
   border: 1px solid;
   padding: 5px 10px; /* 버튼 위아래, 좌우 여백 주기 (버튼 크기 조절)*/
+  cursor: pointer;
 }
 
 div.auction_list > div.search_by_day > input#search {
@@ -179,7 +131,11 @@ div.auction_list > div.search_by_day > input#search {
   background-color: #000000;
 }
 
-div.auction_list > div.search_by_day > input.start_day {
+input[type="date"] {
+  cursor: pointer;
+}
+
+div.auction_list > div.search_by_day > input.start_day, input#start_end_day {
   margin-left: 20px;
 }
 /* 달력 css END */
@@ -191,6 +147,10 @@ ul.period_possible {
   font-size: small;
   color: #22222280;
   line-height: 120%;
+}
+
+div.auction_list, div.auction_end_list {
+  text-align: center;
 }
 
 button#shop {
@@ -208,18 +168,60 @@ button#shop {
 
 /* 경매 종료 css START */
 div.auction_end_box {
-  width: 15%;
+  width: 16.2%;
   text-align: center;
   display: inline-block;
-  padding-bottom: 30px;
-  width: 15%;
-  padding-bottom: 20px;
+  margin-right: -4px;
+  padding-top: 24px;
+  /* background-color: aqua; */
+}
+div.auction_end_boxs {
+  width: 19%;
+  text-align: center;
+  display: inline-block;
+  margin-right: -4px;
+  padding-top: 24px;
+  /* background-color: aqua; */
+}
+/* 상품 정보 css START */
+div.end_desc {
+  border-bottom: 1px solid rgb(205, 205, 205);
+  width: 94%;
 }
 
 div.item_end_area {
-  width: 15%;
+  width: 16.2%;
   text-align: center;
   display: inline-block;
-  padding-bottom: 20px;
+  margin-right: -4px;
+  padding: 60px 20px 55px;
+  vertical-align: bottom;
+  /* background-color: gray; */
+}
+
+div.item_end_areas {
+  width: 19%;
+  text-align: center;
+  display: inline-block;
+  margin-right: -4px;
+  padding: 40px 20px 35px;
+  /* vertical-align: bottom; */
+}
+
+div.end_s_file {
+  background-size: 150px;
+  /*백그라운드 위치 옵션을 center 정중앙에 위치  */
+	background-position: center;
+	/*기본적으로 백그라운드의 옵션은 repeat이다. */
+	background-repeat: no-repeat;
+  vertical-align: top;
+  /* background-color: gray; */
+}
+
+div.list_end_area > div.end_desc:hover {
+  cursor: pointer;
+  /* background-color: rgb(200, 200, 200); */
+  background-color: #fafafa;
+  transition: 0.5s;
 }
 /* 경매 종료 css END */

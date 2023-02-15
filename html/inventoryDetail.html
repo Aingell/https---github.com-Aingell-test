@@ -5,6 +5,7 @@
     <title>Relo</title>
     <link href="../imgs/logo.png" rel="shortcut icon" type="image/x-icon" />
     <link rel="stylesheet" href="../css/basic.css" />
+    <link rel="stylesheet" href="../css/inventoryDetail.css" />
     <link rel="stylesheet" href="../css/mypageBasic.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="../js/basic.js"></script>
@@ -25,12 +26,18 @@
               <strong class="snb_title">쇼핑 정보</strong>
               <ul data-v-7bcac446="" class="snb_menu">
                 <li class="menu_item menu_on">
-                  <a href="./orderList.html" aria-current="page" class="menu_link">
+                  <a
+                    href="./orderList.html"
+                    aria-current="page"
+                    class="menu_link"
+                  >
                     구매 내역
                   </a>
                 </li>
                 <li class="menu_item">
-                  <a href="./mypageingList.html" class="menu_link"> 입찰 내역 </a>
+                  <a href="./mypageingList.html" class="menu_link">
+                    입찰 내역
+                  </a>
                 </li>
                 <li class="menu_item">
                   <a
@@ -42,7 +49,9 @@
                   </a>
                 </li>
                 <li class="menu_item">
-                  <a href="./mypage_zzimlist.html" class="menu_link"> 관심 상품 </a>
+                  <a href="./mypage_zzimlist.html" class="menu_link">
+                    관심 상품
+                  </a>
                 </li>
               </ul>
             </div>
@@ -50,13 +59,15 @@
               <strong class="snb_title">내 정보</strong>
               <ul class="snb_menu">
                 <li class="menu_item">
-                  <a href="./memberdetail.html" class="menu_link"> 프로필 정보 </a>
+                  <a href="./memberdetail.html" class="menu_link">
+                    프로필 정보
+                  </a>
                 </li>
                 <li class="menu_item">
                   <a href="./address.html" class="menu_link"> 주소록 </a>
                 </li>
                 <li class="menu_item">
-                  <a href="" class="menu_link"> 판매 정산 계좌 </a>
+                  <a href="./account.html" class="menu_link"> 판매 정산 계좌 </a>
                 </li>
               </ul>
             </div>
@@ -70,9 +81,11 @@
             <div class="f">
             <div class="sFile">이미지</div>
           </div>
-            <div class="sName">상품이름</div>
+          <div class="desc">
             <div class="sBrand">상품브랜드</div>
+            <div class="sName">상품이름</div>
             <div class="sizeCategoryName">사이즈</div>
+          </div>
             <div class="sOriginPrice">원가</div>
             <div class="sGrade">등급</div>
             <form method="post">
@@ -85,19 +98,19 @@
               />
               원 <br />
               <p>※ 최대 000까지</p>
-            </form>
-            판매 정산 계좌 <br?>
-            <div class="accountInfo">카카오뱅크  /  123-123</div>
-            <div class="managerComment">comment</div>
-          </div>
+              판매 정산 계좌 <br?>
+              <div class="accountInfo">카카오뱅크  /  123-123</div>
+              <div class="managerComment">comment</div>
+            </div>
           <div class="choice">
-            <input type="button" value="취소" name="cancle" class="cancle"> 
-            <input type="button" value="신청하기" name="regi" class="regi"> 
+            <input type="button" value="취소하기" name="cancle" class="cancle"> 
+            <input type="submit" value="신청하기" name="regi" class="regi"> 
             <input type="button" value="목록으로" onclick="location.href = './inventory.html'"> 
           </div>
+        </form>
         </div>
       </section>
     </div>
-    <footer id="footer"></footer>
+    <div id="footer"></div>
   </body>
 </html>

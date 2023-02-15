@@ -1,11 +1,12 @@
 $(() => {
-  let url = backUrL + "/stock/listById.do";
+  $("div#popup_background").hide();
+  let url = backUrl + "/stock/listById.do";
   $.ajax({
     url: url,
     method: "post",
     success: function (jsonStr) {
-      let $origin = $("div.sell").first();
-      let $parent = $("div.sellList");
+      let $origin = $("div.desc").first();
+      let $parent = $("div.list_area");
       $(jsonStr).each((index, s) => {
         let sFile = s.sFile;
         let sizeCategoryName = s.sizeCategoryName;
@@ -13,6 +14,7 @@ $(() => {
         let sGrade = s.sGrade;
         let sReturn = s.sReturn;
         let sNum = s.sNum;
+        let sBrand = s.sBrand;
 
         let $copy = $origin.clone();
 
@@ -31,7 +33,8 @@ $(() => {
         $imgObj.attr("src", "../imgs/" + sFile); //+ ".jpg"
         $copy.find("div.sNum").html(sNum);
         $copy.find("div.sFile").empty().append($imgObj);
-        $copy.find("div.sName").html(sName + '<div class="sizeCategoryName">');
+        $copy.find("div.sName").html(sName);
+        $copy.find("div.sBrand").html(sBrand);
         $copy.find("div.sizeCategoryName").html(sizeCategoryName);
         $copy.find("div.sGrade").html(sGrade);
         $copy.find("div.sReturn").html(sReturn);
@@ -45,16 +48,24 @@ $(() => {
   });
 
   //--상세보기 클릭되었을 때 할일 START--
-  $("div.sellList").on("click", "div.sell", function (e) {
-    let sReturn = $(e.target).parents("div.sell").find("div.sReturn").html();
+  $("div.list_area").on("click", "div.desc", function (e) {
+    let sReturn = $(e.target).parents("div.desc").find("div.sReturn").html();
     if (sReturn == "검수완료") {
-      let sNum = $(e.target).parents("div.sell").find("div.sNum").html();
+      let sNum = $(e.target).parents("div.desc").find("div.sNum").html();
       location.href = "./inventoryDetail.html?sNum=" + sNum;
     } else if (sReturn == "검수중") {
-      alert("아직 상품이 검수중입니다.");
+      $("div#popup_background").show();
+      $("p#ask").html("아직 상품이 검수중입니다.");
     } else if (sReturn == "판매등록 대기중") {
-      alert("관리자가 상품을 등록중입니다.");
+      $("div#popup_background").show();
+      $("p#ask").html("관리자가 상품을 등록중입니다.");
     }
   });
   //--상세보기 클릭되었을 때 할일 END--
+
+  //--모달창 클릭되었을 때 할일 START--
+  $("#ok_btn").click(function (e) {
+    $("div#popup_background").hide();
+  });
+  //--모달창 클릭되었을 때 할일 END--
 });

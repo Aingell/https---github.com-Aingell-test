@@ -32,7 +32,9 @@ public class ScBidListByPstatus implements Handler {
 		}
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json; charset=UTF-8");
-		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Origin", "http://192.168.0.42:5500");
+		response.addHeader("Access-Control-Allow-Credentials", "true");//쿠키허용
+		
 		
 		ScBidService service = new ScBidService();
 		ObjectMapper mapper = new ObjectMapper();

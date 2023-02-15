@@ -1,125 +1,111 @@
-* {
-  margin: 0px;
-  padding: 0px;
-  text-decoration: none;
-  font-family: sans-serif;
+section {
+  padding-bottom: 100px;
 }
 
-body {
-  background-image: #34495e;
+.content_area {
+  text-align: center;
 }
 
-#id_input_error,
-#pwd_input_error,
-#password_input_error,
-#email_input_error,
-#name_input_error,
-#tel_input_error {
-  color: #f15746;
-}
-
-.joinForm {
-  position: absolute;
+form {
+  display: inline-block;
   width: 400px;
-  height: 400px;
-  padding: 30px, 20px;
-  background-color: #ffffff;
+  text-align: left;
+  padding-top: 15px;
+}
+
+h2 {
+  font-size: 32px;
   text-align: center;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 15px;
+  letter-spacing: 0.2rem;
 }
 
-.joinForm h2 {
-  text-align: center;
-  margin: 30px;
+h3 {
+  font-size: 13px;
 }
 
-.textForm {
-  border-bottom: 2px solid #adadad;
-  margin: 30px;
-  padding: 10px 10px;
+.input_box {
+  height: 70px;
 }
 
-.id {
-  width: 100%;
-  border: none;
+input {
   outline: none;
-  color: #636e72;
-  font-size: 16px;
-  height: 25px;
-  background: none;
-}
-
-.pw {
+  border: none;
   width: 100%;
-  border: none;
-  outline: none;
-  color: #636e72;
-  font-size: 16px;
-  height: 25px;
-  background: none;
+  font-size: 15px;
+  letter-spacing: -0.15px;
+  line-height: 22px;
+  border-bottom: 1px solid #ebebeb;
 }
 
-.name {
-  width: 100%;
-  border: none;
-  outline: none;
-  color: #636e72;
-  font-size: 16px;
-  height: 25px;
-  background: none;
+input::placeholder {
+  color: #222222cc;
 }
 
-.email {
-  width: 100%;
-  border: none;
-  outline: none;
-  color: #636e72;
-  font-size: 16px;
-  height: 25px;
-  background: none;
+input:focus {
+  border-bottom: 2px solid #000000;
 }
 
-.birth {
-  width: 100%;
-  border: none;
-  outline: none;
-  color: #636e72;
-  font-size: 16px;
-  height: 25px;
-  background: none;
+.msg {
+  font-size: 14px;
 }
 
-.cellphoneNo {
-  width: 100%;
-  border: none;
-  outline: none;
-  color: #636e72;
-  font-size: 16px;
-  height: 25px;
-  background: none;
+.checkbox_item {
+  box-sizing: border-box;
 }
 
-.btn {
-  position: relative;
-  left: 40%;
-  transform: translateX(-50%);
-  margin-bottom: 40px;
-  width: 80%;
-  height: 40px;
-  background: linear-gradient(125deg, #81ecec, #6c5ce7, #81ecec);
-  background-position: left;
-  background-size: 200%;
-  color: white;
-  font-weight: bold;
-  border: none;
+input[type='checkbox'] {
+  margin-top: 1rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  accent-color: #000000;
+}
+
+i,
+.label_txt_big,
+.label_txt {
   cursor: pointer;
-  transition: 0.4s;
-  display: inline;
 }
 
-.btn:hover {
-  background-position: right;
+i {
+  margin-left: 92px;
+}
+
+.checkbox_sub {
+  text-align: left;
+  margin-left: 40px;
+}
+
+#plus_btn_2,
+#minus_btn_2 {
+  margin-left: 83px;
+}
+
+.label_txt_big,
+.label_txt {
+  margin-left: 5px;
+}
+
+.join_term {
+  font-size: 14px;
+}
+
+.join_btn_box {
+  text-align: center;
+  margin-top: 35px;
+}
+
+#join_btn {
+  display: inline-flex;
+  justify-content: center;
+  width: 400px;
+  line-height: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 10px;
+  background-color: #ebebeb;
+  color: #fff;
+  cursor: default;
+  /* color: #fff; */
+  /* cursor: pointer; */
+  /* background-color: #000000; */
 }

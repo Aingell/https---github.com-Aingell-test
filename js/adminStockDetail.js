@@ -15,16 +15,15 @@ $(() => {
       let sOriginPrice = jsonStr.soriginPrice;
       let sHopeDays = jsonStr.shopeDays;
       let sellerComment = jsonStr.sellerComment;
-      $(".sBrand").html("상품 브랜드 : " + sBrand);
-      $(".sName").html("상품명 : " + sName);
-      $(".sType").html("상품 유형: " + sType);
-      $(".sizeCategoryName").html("상품 사이즈 : " + sizeCategoryName);
-      $(".sColor").html("상품 색상 : " + sColor);
-      $(".sOriginPrice").html(
-        "상품 원가 : " + sOriginPrice + "원" + '<div class="sHopeDays"></div>'
-      );
-      $(".sHopeDays").html("경매 희망일 : " + sHopeDays + "일");
-      $(".sellerComment").html("comment : " + sellerComment);
+      $(".sBrand").html(sBrand);
+      $(".sName").html(sName);
+      $(".sType").html(sType);
+      $(".sizeCategoryName").html(sizeCategoryName);
+      $(".sColor").html(sColor);
+      $(".sOriginPrice").html(sOriginPrice + "원");
+
+      $(".sHopeDays").html(sHopeDays + "일");
+      $(".sellerComment").html(sellerComment);
 
       $(".sFile").hide();
       let $imgObj = $("<img class='sFile'>");

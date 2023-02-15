@@ -22,8 +22,8 @@ public class CheckLogined implements Handler {
 			throws ServletException, IOException {
 
 		response.setContentType("application/json;charset=utf-8");
-		response.addHeader("Access-Control-Allow-Origin", "http://192.168.123.103:5500");
-//		response.addHeader("Access-Control-Allow-Origin", "http://192.168.0.42:5500");
+//		response.addHeader("Access-Control-Allow-Origin", "http://192.168.123.103:5500");
+		response.addHeader("Access-Control-Allow-Origin", "http://192.168.0.42:5500");
 		response.addHeader("Access-Control-Allow-Credentials", "true");//쿠키허용
 
 		//로그인된경우 사용될 session 속성은(속성명: "logined", 값: 로그인된 고객정보)이다	

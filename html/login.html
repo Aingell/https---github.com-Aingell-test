@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>로그인</title>
+    <title>RELO</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -26,26 +26,34 @@
     <script src="../js/login.js"></script>
   </head>
   <body>
-    <!-- header import start -->
-    <div id="header"></div>
-    <!-- header import end -->
-    <section>
-
-      <div class="login-wrapper">
-        <h2>로그인</h2>
-        <form
-        method="post"
-        id="login-form"
-        action="http://192.168.123.105:8888/relo/member/login.do"
-        >
-        <input type="text" id="id" name="id" placeholder="Id" />
-        <input type="password" id="pwd" name="pwd" placeholder="Password" />
-        <input type="button" id="login" value="Login" />
-      </form>
-      <a href="./findid.html">아이디 or 비밀번호 찾기</a>
+    <div id="wrapper">
+      <!-- header import start -->
+      <div id="header"></div>
+      <!-- header import end -->
+      <section>
+        <div class="login-wrapper">
+          <h2>
+            <img src="../imgs/logo.png" id="logo"></img>
+          </h2>
+          <form>
+            <h3 id="title_id">아이디</h3>
+            <input type="text" id="id"/>
+            <h3 id="title_pwd">비밀번호</h3>
+            <input type="password" id="pwd"/>
+            <div id="error_msg_pwd"></div>
+            <input type="button" id="login" value="로그인" disabled="disabled"/>
+          </form>
+          <div>
+          <a href="./join.html" class="link">회원가입</a>
+          <div class="updown"></div>
+          <a href="./findid.html" class="link">아이디 or 비밀번호 찾기</a>
+          </div>
+          <div>
+            <a id="naver"><img src="../imgs/naver_logo.png" id="naver_logo"><span id="label_login">네이버로 로그인</span></a>
+          </div>
+        </div>
+      </section>
     </div>
-    
-  </section>
     <!--footer import start-->
     <div id="footer"></div>
     <!--footer import end-->

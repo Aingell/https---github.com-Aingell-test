@@ -10,16 +10,14 @@ $(() => {
       let sBrand = jsonStr.sbrand;
       let sName = jsonStr.sname;
       let sizeCategoryName = jsonStr.sizes.sizeCategoryName;
-      let sGrade = jsonStr.sGrade;
+      let sGrade = jsonStr.sgrade;
       let sOriginPrice = jsonStr.soriginPrice;
       let managerComment = jsonStr.managerComment;
-      $(".sBrand").html("상품 브랜드 : " + sBrand);
-      $(".sName").html("상품명 : " + sName);
-      $(".sizeCategoryName").html("상품 사이즈 : " + sizeCategoryName);
-      $(".sGrade").html("상품 등급 : " + sGrade);
-      $(".sOriginPrice").html(
-        "상품 원가 : " + sOriginPrice + "원" + '<div class="sHopeDays"></div>'
-      );
+      $(".sBrand").html(sBrand);
+      $(".sName").html(sName);
+      $(".sizeCategoryName").html("사이즈: " + sizeCategoryName);
+      $(".sGrade").html("상품 등급 : " + sGrade + " 급");
+      $(".sOriginPrice").html("상품 원가 : " + sOriginPrice + "원");
       $(".managerComment").html("comment : " + managerComment);
 
       $(".sFile").hide();
@@ -33,22 +31,21 @@ $(() => {
     },
   });
 
-  //--등급과 comment 입력 후 sumit되었을 때 할일 START--
+  //--판매자 희망판매가 입력 후 sumit되었을 때 할일 START--
   let $form = $("div.inventory>form");
   $form.submit((e) => {
     let url = backUrl + "/stock/editSReturn.do";
     let sNum = location.search.substring(1).split("=")[1];
     let params = {
       sNum: sNum,
-      sGrade: $(".sGrade").val(),
-      managerComment: $(".managerComment").val(),
+      sHopePrice: $(".sHopePrice").val(),
     };
     $.ajax({
       url: url,
       method: "post",
       data: params,
       success: function () {
-        location.href = frontURL + "admin.html";
+        location.href = frontUrl + "inventory.html";
       },
       error: function (xhr) {
         alert("오류" + xhr.status);
@@ -57,5 +54,5 @@ $(() => {
     // 기본 이벤트 처리 막기: return false
     return false;
   });
-  //--등급과 comment 입력 후 sumit되었을 때 할일 END--
+  //--판매자 희망판매가 입력 후 sumit되었을 때 할일 END--
 });

@@ -1,418 +1,76 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-    <title>마이 페이지</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      media="screen"
-      href="../css/basic.css"
-    />
-    <link
-    rel="stylesheet"
-    type="text/css"
-    media="screen"
-    href="../css/mypageBasic.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      media="screen"
-      href="../css/memberdetail.css"
-    />
-    <link
-      data-n-head="ssr"
-      rel="icon"
-      type="image/x-icon"
-      href="../imgs/logo.png"
-    />
+    <meta charset="UTF-8" />
+    <title>Relo</title>
+    <link href="../imgs/logo.png" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="../css/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../css/productdetail.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="../js/basic.js"></script>
-    <script src="../js/memberdetail.js"></script>
+    <script src="../js/productdetail.js"></script>
   </head>
   <body>
-
-    <div class="wrap">
-      <!-- header import start -->
+    <div id="wrapper">
       <div id="header"></div>
-      <!-- header import end -->
-      <!--container 시작-->
       <section>
-        <div class="snb_area">
-          <a href="./memberdetail.html" class="nuxt-link-active"
-            ><h2 class="snb_main_title">마이 페이지</h2></a
-          >
-          <nav class="snb">
-            <div class="snb_list">
-              <strong class="snb_title">쇼핑 정보</strong>
-              <ul data-v-7bcac446="" class="snb_menu">
-                <li class="menu_item menu_on">
-                  <a href="./orderList.html" aria-current="page" class="menu_link">
-                    구매 내역
-                  </a>
-                </li>
-                <li class="menu_item">
-                  <a href="./mypageingList.html" class="menu_link"> 입찰 내역 </a>
-                </li>
-                <li class="menu_item">
-                  <a
-                    href="./inventory.html"
-                    class="menu_link"
-                    style="font-weight: bold"
-                  >
-                    판매 내역
-                  </a>
-                </li>
-                <li class="menu_item">
-                  <a href="./mypage_zzimlist.html" class="menu_link"> 관심 상품 </a>
-                </li>
-              </ul>
-            </div>
-            <div class="snb_list">
-              <strong class="snb_title">내 정보</strong>
-              <ul class="snb_menu">
-                <li class="menu_item">
-                  <a href="./memberdetail.html" class="menu_link"> 프로필 정보 </a>
-                </li>
-                <li class="menu_item">
-                  <a href="./address.html" class="menu_link"> 주소록 </a>
-                </li>
-                <li class="menu_item">
-                  <a href="" class="menu_link"> 판매 정산 계좌 </a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-      <div class="container my">
-        <div style="float: left">
-          <!--snb_area start-->
-          <!-- <div th:replace="include/pjs_mypage_snb_mo :: mypage_snb_mo"></div> -->
-          <!--snb_area end-->
-        </div>
-        <div class="content_area" style="float: left">
-          <div class="my_profile">
-            <div class="content_title border">
-              <div class="title">
-                <h2>프로필 정보</h2>
-                <!---->
-              </div>
-              <!---->
-            </div>
-            <form method="post">
-              <div class="user_profile">
-                <div class="profile_thumb">
-                  <img
-                    src="../imgs/defaultProfileImg.png"
-                    alt="사용자 이미지"
-                    class="profile_img"
-                  />
-                </div>
-                <div class="profile_detail">
-                  <strong class="name" id="show_userid_title">ID</strong>
-                  <div class="profile_btn_box">
-                    <button class="btn outlinegrey small" id="upImage">
-                      이미지 변경
-                    </button>
-                    <button class="btn outlinegrey small" id="delImage">
-                      삭제
-                    </button>
-                  </div>
-                </div>
-                <input
-                  type="file"
-                  hidden="hidden"
-                  id="imageFileInput"
-                  name="file"
-                  accept="image/png, image/jpeg"
-                  multiple
-                />
-              </div>
-              <!-- </form> -->
-              <div class="profile_info">
-                <div class="profile_group">
-                  <h4 class="group_title">로그인 정보</h4>
-                  <!-- 기존 이메일 -->
-                  <div class="unit" id="unit_email">
-                    <h5 class="title">이메일 주소</h5>
-                    <p class="desc email" id="show_email"></p>
-                    <button
-                      type="button"
-                      class="btn btn_modify outlinegrey small"
-                      id="openEmailBtn"
-                    >
-                      변경
-                    </button>
-                  </div>
-                  <!-- 이메일 변경 -->
-                  <div class="modify" id="modify_email">
-                    <div id="input_mo_box">
-                      <!--                                    <form method="post" onsubmit="return sendit()">-->
-                      <div class="input_box" id="email_input_box">
-                        <h6 class="input_title">이메일 주소 변경</h6>
-                        <div class="input_item">
-                          <label for="email_input"></label>
-                          <input
-                            type="text"
-                            id="email_input"
-                            autocomplete="off"
-                            class="input_txt"
-                            placeholder=""
-                          />
-                        </div>
-                        <p class="input_error" id="email_input_error"></p>
-                      </div>
-                      <div class="modify_btn_box">
-                        <button
-                          type="button"
-                          class="btn outlinegrey medium"
-                          slot="button"
-                          id="closeEmailBtn"
-                        >
-                          취소
-                        </button>
-                        <button
-                          type="button"
-                          class="btn solid medium disabled"
-                          slot="button"
-                          id="sendEmailBtn"
-                          disabled
-                        >
-                          저장
-                        </button>
-                      </div>
-                      <!--                                    </form>-->
-                    </div>
-                  </div>
-                  <!-- 기존 비밀 번호  -->
-                  <div class="unit" id="unit_password">
-                    <h5 class="title">비밀번호</h5>
-                    <p class="desc password">●●●●●●●●●</p>
-                    <button
-                      type="button"
-                      class="btn btn_modify outlinegrey small"
-                      id="openPasswordBtn"
-                    >
-                      변경
-                    </button>
-                  </div>
-                  <!-- 비밀번호 변경 -->
-                  <div
-                    class="modify"
-                    style="display: none"
-                    id="modify_password"
-                  >
-                    <h5 class="title">비밀번호 변경</h5>
-                    <!-- <div class="input_box" id="password_input_box1">
-                      <h6 class="input_title" id="mo_input_title">
-                        이전 비밀번호
-                      </h6>
-                      <div class="input_item" style="position: relative">
-                        <input
-                          type="password"
-                          id="password_input1"
-                          name="beforePassword"
-                          placeholder="영문, 숫자, 특수문자 조합 8-16자"
-                          autocomplete="off"
-                          class="input_txt"
-                        />
-                        <button type="button" class="btn solid small disabled" disabled="" slot="button" id="confirmPasswordBtn" style="position:absolute; right: 0; bottom:1.5rem"> 확인 </button>
-                      </div>
-                      <p class="input_error" id="password_input_error1"></p>
-                    </div> -->
-                    <div class="input_box" id="password_input_box2">
-                      <h6 class="input_title">새 비밀번호</h6>
-                      <div class="input_item">
-                        <input
-                          type="password"
-                          id="password_input2"
-                          name="afterPassword"
-                          placeholder="영문, 숫자, 특수문자 조합 8-16자"
-                          autocomplete="off"
-                          class="input_txt"
-                        />
-                      </div>
-                      <p class="input_error" id="password_input_error2"></p>
-                    </div>
-                    <div class="modify_btn_box">
-                      <button
-                        type="button"
-                        class="btn outlinegrey medium"
-                        slot="button"
-                        id="closePasswordBtn"
-                      >
-                        취소
-                      </button>
-                      <button
-                        type="button"
-                        class="btn solid medium disabled"
-                        disabled="disabled"
-                        slot="button"
-                        id="sendPasswordBtn"
-                      >
-                        저장
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <!-- 개인정보 -->
-                <div class="profile_group">
-                  <h4 class="group_title">개인 정보</h4>
-                  <!-- 기존 개인정보 -->
-                  <div class="unit" id="unit_name">
-                    <h5 class="title">이름</h5>
-                    <p class="desc" id="show_userid"></p>
-                    <button
-                      type="button"
-                      class="btn btn_modify outlinegrey small"
-                      id="openNamedBtn"
-                    >
-                      변경
-                    </button>
-                  </div>
-                  <!-- 변경할 이름 -->
-                  <div
-                    class="modify name"
-                    style="display: none"
-                    id="modify_name"
-                  >
-                    <h5 class="title">이름</h5>
-                    <div class="input_box" id="name_input_box">
-                      <h6 class="input_title">새로운 이름</h6>
-                      <div class="input_item">
-                        <input
-                          type="text"
-                          placeholder="고객님의 이름"
-                          autocomplete="off"
-                          class="input_txt"
-                          id="name_input"
-                        />
-                      </div>
-                      <p class="input_error" id="name_input_error"></p>
-                    </div>
-                    <div class="modify_btn_box">
-                      <button
-                        type="button"
-                        class="btn outlinegrey medium"
-                        slot="button"
-                        id="closeNameBtn"
-                      >
-                        취소
-                      </button>
-                      <button
-                        type="button"
-                        class="btn solid medium disabled"
-                        disabled
-                        slot="button"
-                        id="sendNameBtn"
-                      >
-                        저장
-                      </button>
-                    </div>
-                  </div>
-                  <!-- 기존 휴대폰 번호 -->
-                  <div class="unit" id="unit_hp">
-                    <h5 class="title">휴대폰 번호</h5>
-                    <p class="desc" id="show_hp"></p>
-                    <button
-                      type="button"
-                      class="btn btn_modify outlinegrey small"
-                      id="openHpBtn"
-                    >
-                      변경
-                    </button>
-                  </div>
-                  <!-- 변경할 휴대폰 번호 -->
-                  <div class="modify" style="display: none" id="modify_hp">
-                    <h5 class="title">휴대폰 번호</h5>
-                    <div class="input_box" id="hp_input_box">
-                      <h6 class="input_title">새 휴대폰 번호</h6>
-                      <div class="input_item">
-                        <input
-                          type="text"
-                          placeholder="휴대폰 번호('-'제거 후 입력해주세요.)"
-                          autocomplete="off"
-                          class="input_txt"
-                          id="hp_input"
-                        />
-                      </div>
-                      <p class="input_error" id="hp_input_error"></p>
-                    </div>
-                    <div class="modify_btn_box">
-                      <button
-                        type="button"
-                        class="btn outlinegrey medium"
-                        slot="button"
-                        id="closeHpBtn"
-                      >
-                        취소
-                      </button>
-                      <button
-                        type="button"
-                        class="btn solid medium disabled"
-                        disabled
-                        slot="button"
-                        id="sendHpBtn"
-                      >
-                        저장
-                      </button>
-                    </div>
-                  </div>
-                  <!-- 기존 신발 사이즈 -->
-                  <!-- <div class="unit">
-                          <h5 class="title">사이즈</h5>
-                          <p class="desc" id="show_shoesize"></p>
-                          <button type="button" class="btn btn_modify outlinegrey small" id="size_layer_open"> 변경 </button>
-                      </div> -->
-                </div>
-              </div>
-            </form>
-            <!-- 광고성 정보 수신 -->
-            <!-- <div class="profile_group">
-                  <h4 class="group_title">광고성 정보 수신</h4>
-                  <div class="unit to_receive">
-                      <p class="desc">문자 메시지</p>
-                      <div class="radio_txt_box">
-                          <div class="radio_item">
-                              <label for="sms_agree" class="radio_label">
-                                  <input type="radio" id="sms_agree" name="message_radio" value="1" class="ico-radio-inactive icon sprite-icons">
-                                  <span class="label_txt">수신 동의</span>
-                              </label>
-                          </div>
-                          <div class="radio_item">
-                              <label for="sms_disagree" class="radio_label">
-                                  <input type="radio" id="sms_disagree" name="message_radio" value="0" class="ico-radio-inactive icon sprite-icons">
-                                  <span class="label_txt">수신 거부</span>
-                              </label>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="unit to_receive">
-                      <p class="desc">이메일</p>
-                      <div class="radio_txt_box">
-                          <div class="radio_item">
-                              <label for="email_agree" class="radio_label">
-                                  <input type="radio" id="email_agree" name="email_radio" value="1" class="ico-radio-inactive icon sprite-icons">
-                                  <span class="label_txt">수신 동의</span>
-                              </label>
-                          </div>
-                          <div class="radio_item">
-                              <label for="email_disagree" class="radio_label">
-                                  <input type="radio" id="email_disagree" name="email_radio" value="0" class="ico-radio-inactive icon sprite-icons">
-                                  <span class="label_txt">수신 거부</span>
-                              </label>
-                          </div>
-                      </div>
-                  </div>
-              </div> -->
-            <a href="./out.html" class="btn_withdrawal">회원 탈퇴</a>
+        <div class="left">
+          <div class="pnum"></div>
+          <div class="sid"></div>
+          <div class="simg"></div>
+          <div class="rtender">
+          <fieldset>
+          <h3>
+            최근 입찰 내역
+            <span>(입찰가 순으로 정렬)</span>
+          </h3>
+            <table border="1" id="tender">
+              <tr>
+                <th>입찰자</th>
+                <th>입찰가</th>
+              </tr>
+            </table>
+          
+          </fieldset>
           </div>
         </div>
-      </div>
-      <!--container 끝-->
+        <div class="right">
+          <div class="sbrand"></div>
+          <div class="sname"></div>
+          <hr />
+          <h4>경매정보</h4>
+          <div class="enddate">경매마감일 : </div>
+          <div class="remaindate"></div>
+          <div class="shopeprice">희망판매가 : <span class="hopeval"></span> </div>
+          <div class="maxprice">최고입찰가 : <span class="maxval"></span></div>
+          <div class ="inserttender">
+            <form id="tenderform">
+            상품입찰 : 
+            <input type="text" id = "tenderprice" name="tenderprice" placeholder="입찰가를 입력하세요">
+            <button id="tsubmit">입찰하기</button>
+            </form> <hr>
+          <h4>상품정보</h4>
+          <div class="smanagercomment">관리자코멘트 : </div>
+          <div class="sizecategoryname">사이즈 : </div>
+          <div class="scolor">상품색상 : </div>
+          <div class="soriginprice">발매가 : </div>
+          <div class="sgrade">등급 : </div>
+          <div class ="addzzim">
+            <button id="zsubmit">이 상품 찜하기</button>
+           </div>
+          <hr>
+          <div class="tendercomment">
+          <h4>구매전 꼭 확인해주세요!</h4>
+          <strong>100% 정품 보증</strong><br>
+          <p class="p">RELO에서 검수한 상품이 정품이 아닐 경우, 구매가의 3배를 보상합니다.</p>
+          <strong>엄격한 다중 검수</strong><br>
+          <p class="p">모든 상품은 검수센터에 도착한 후, 상품별 전문가 그룹의 체계적인 시스템을 거쳐 검수를 진행합니다.</p>
+          <strong>정품 인증 패키지</strong><br>
+          <p class="p">검수에 합격한 경우에 한하여 RELO의 정품 인증 패키지가 포함된 상품이 배송됩니다.</p>
+          </div>
+        </div>
+      </section>
     </div>
-    <!-- wrap 끝 -->
     <div id="footer"></div>
   </body>
 </html>

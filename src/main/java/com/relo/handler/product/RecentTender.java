@@ -27,8 +27,9 @@ public class RecentTender implements Handler {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json; charset=UTF-8");
-		response.addHeader("Access-Control-Allow-Origin", "*");
-
+		response.addHeader("Access-Control-Allow-Origin", "http://192.168.0.42:5500");
+		response.addHeader("Access-Control-Allow-Credentials", "true");//쿠키허용
+		
 		int pNum = Integer.parseInt(request.getParameter("pNum"));
 
 		ProductService service = new ProductService();

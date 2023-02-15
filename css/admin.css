@@ -1,19 +1,55 @@
 /* 관리자 페이지용 추가*/
-div.StockList,
-div.StockDetail {
-  background-color: rgb(246, 246, 246);
+div.content_area {
+  float: right;
   width: 75%;
+}
+
+/* 상품명, 사이즈, 입찰가, 경매마감일 title css */
+div.head_menu {
+  border-bottom: 1px solid rgb(205, 205, 205);
+  width: 80%;
+  padding-bottom: 10px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+
+div.auction_box {
+  width: 20%;
+  text-align: center;
+  display: inline-block;
+  margin-right: -4px;
+  padding-top: 50px;
+  /* background-color: aqua; */
+}
+
+div.StockList {
+  background-color: rgb(246, 246, 246);
+  width: 80%;
   line-height: 300%; /* br태그 간격조정 */
+}
+
+#info2 {
+  margin-right: 200px;
+}
+
+div.StockDetail {
+  width: 80%;
+  border-top-style: solid;
+  border-top-color: rgb(0, 0, 0);
+  border-bottom-width: 1px;
 }
 
 div.StockList > div.stock {
   border-bottom-style: solid;
   border-bottom-color: rgb(0, 0, 0);
   border-bottom-width: 1px;
+  display: flex;
+  justify-content: space-between;
 }
 
 div.StockList > div.stock > div.info {
-  display: inline-block;
+  padding-top: 15px;
 }
 
 div.StockList > div.stock > div.detailpage {
@@ -22,15 +58,18 @@ div.StockList > div.stock > div.detailpage {
   margin-right: 50px;
 }
 
-div.StockList > div.stock > div.info > div.sizeCategoryName,
-div.sColor {
-  display: inline-block;
+div.StockList > div.stock > div.info > div.sizeCategoryName {
+  margin-bottom: 15px;
+  margin-right: 25px;
+}
+
+div.StockList > div.stock > div.info > div.sColor {
   margin-bottom: 15px;
   margin-right: 25px;
 }
 
 div.StockList > div.stock > div.info > div.sName {
-  margin-bottom: 50px;
+  margin-bottom: 15px;
 }
 
 div.StockList > div.stock > div.info > div.sNum {
@@ -43,6 +82,8 @@ div.StockList > div.stock > div.sFile > img.sFile {
 }
 
 div.StockList > div.stock > div.sFile {
+  padding-left: 30px;
+  padding-top: 30px;
   display: inline-block;
 }
 
@@ -54,6 +95,8 @@ div.StockList > div.stock > div.sFile {
   transition: 0.3s;
   font-size: 18px;
   font-weight: bold;
+  cursor: pointer;
+  margin-top: 30px;
 }
 
 .detail:hover {
@@ -64,7 +107,6 @@ div.StockList > div.stock > div.sFile {
 
 /*관리자 승인요청 상세 디테일 */
 
-div.i,
 div.file {
   display: inline-block;
 }
@@ -72,38 +114,13 @@ div.file {
 div.file > img.sFile {
   width: 200px;
   height: 200px;
-  margin-bottom: 300px;
   margin-left: 50px;
-}
-
-div.i {
-  margin-top: 100px;
-  margin-left: 50px;
-}
-
-div.sHopeDays {
-  display: inline-block;
-  padding-left: 30px;
-}
-
-div.i > input.managerComment {
-  width: 300px;
-  height: 80px;
-  padding-left: 20px;
-  margin-top: 20px;
-}
-
-div.i > input.sGrade {
-  margin-left: 38px;
-  width: 80px;
-  height: 30px;
-  text-align: center;
 }
 
 div.next > input {
   padding: 15px 25px;
   border-radius: 10px;
-  margin-left: 650px;
+  margin-left: 340px;
   margin-top: 50px;
   margin-bottom: 50px;
   transition: 0.3s;
@@ -112,4 +129,42 @@ div.next > input {
 div.next > input:hover {
   background: rgb(0, 0, 0);
   color: aliceblue;
+}
+
+table.type09 {
+  border-collapse: collapse;
+  text-align: left;
+  line-height: 1.5;
+}
+table.type09 thead th {
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  color: #369;
+  /* border-bottom: 3px solid #036; */
+  border-bottom: 1px solid #ccc;
+}
+table.type09 tbody th {
+  width: 150px;
+  padding: 10px;
+  font-weight: bold;
+  /* vertical-align: top; */
+  border-bottom: 1px solid #ccc;
+  background: #f3f6f7;
+}
+table.type09 td {
+  width: 350px;
+  padding: 10px;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+}
+
+input.managerComment {
+  padding-top: 30px;
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+div.file > img.sFile {
+  margin-top: 15px;
 }

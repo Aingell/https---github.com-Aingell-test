@@ -22,8 +22,8 @@ public class MemberLogin implements Handler {
 			throws ServletException, IOException {
 		
 		response.setContentType("application/json;charset=utf-8");
-		response.addHeader("Access-Control-Allow-Origin", "http://192.168.123.103:5500");
-//		response.addHeader("Access-Control-Allow-Origin", "http://192.168.0.42:5500");
+//		response.addHeader("Access-Control-Allow-Origin", "http://192.168.123.103:5500");
+		response.addHeader("Access-Control-Allow-Origin", "http://192.168.0.42:5500");
 		response.addHeader("Access-Control-Allow-Credentials", "true");//쿠키허용
 		
 		String id = request.getParameter("id");

@@ -19,7 +19,9 @@ public class StockEditSReturn5 implements Handler {
 	public String process(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		response.setContentType("application/json;charset=utf-8");
-		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Origin", "http://192.168.0.42:5500");
+		response.addHeader("Access-Control-Allow-Credentials", "true");//쿠키허용
+		
 		
 		int sNum = Integer.parseInt(request.getParameter("sNum")); 
 		

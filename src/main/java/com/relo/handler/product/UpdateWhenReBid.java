@@ -19,7 +19,8 @@ public class UpdateWhenReBid implements Handler {
 	public String process(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("application/json;charset=utf-8");
-		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Origin", "http://192.168.0.42:5500");
+		response.addHeader("Access-Control-Allow-Credentials", "true");//쿠키허용
 		
 		int pNum = Integer.parseInt(request.getParameter("pNum"));
 		
